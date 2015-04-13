@@ -3,22 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Searching and Sorting" Height="350" Width="525">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Width="150" Background="#FFEAEAEA">
-            <Label Content="Search Algorithms" Style="{StaticResource Heading}" />
-            <Button Content="Linear" />
-            <Button Content="Binary" />
-            
-            <Label Content="Sorting Algorithms" Style="{StaticResource Heading}" />
-            <Button Content="Selection" />
-            <Button Content="Insertion" />
-            <Button Content="Bubble" />
-            <Button Content="Merge" />
-            <Button Content="Quick" />
+        <StackPanel x:Name="algorithmsPanel" DockPanel.Dock="Left" Width="150" Background="#FFEAEAEA">
+            <RadioButton x:Name="searchRadioButton" Content="Search Algorithms" 
+                         Style="{StaticResource Heading}" Checked="searchRadioButton_Checked" />
+            <StackPanel x:Name="searchAlgorithmsPanel">
+                <Button Content="Linear" />
+                <Button Content="Binary" />
+            </StackPanel>
+                
+            <RadioButton x:Name="sortRadioButton" Content="Sorting Algorithms" 
+                         Style="{StaticResource Heading}" Checked="sortRadioButton_Checked" />
+            <StackPanel x:Name="sortAlgorithmsPanel">
+                <Button Content="Selection" />
+                <Button Content="Insertion" />
+                <Button Content="Bubble" />
+                <Button Content="Merge" />
+                <Button Content="Quick" />
+            </StackPanel>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Right">
-            <Label Content="Insert numbers here:" Style="{StaticResource Heading}" />
+        
+        <StackPanel x:Name="dataPanel" DockPanel.Dock="Right">
+            <Label Content="Insert numbers here (separate numbers with spaces):" Style="{StaticResource Heading}" />
             <TextBox x:Name="inputBox" Margin="5" />
             
+            <StackPanel x:Name="searchOnlyInput">
+                <Label Content="Insert desired number here:" Style="{StaticResource Heading}" />
+                <TextBox x:Name="desiredNumBox" Margin="5" />
+            </StackPanel>
             <Label Content="Output:" Style="{StaticResource Heading}" />
             <Label x:Name="outputLabel" Content="..." Style="{StaticResource Info}" />
             
