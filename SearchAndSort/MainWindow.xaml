@@ -1,0 +1,29 @@
+﻿<Window x:Class="SearchAndSort.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Searching and Sorting" Height="350" Width="525">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Width="150" Background="#FFEAEAEA">
+            <Label Content="Search Algorithms" Style="{StaticResource Heading}" />
+            <Button Content="Linear" />
+            <Button Content="Binary" />
+            
+            <Label Content="Sorting Algorithms" Style="{StaticResource Heading}" />
+            <Button Content="Selection" />
+            <Button Content="Insertion" />
+            <Button Content="Bubble" />
+            <Button Content="Merge" />
+            <Button Content="Quick" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right">
+            <Label Content="Insert numbers here:" Style="{StaticResource Heading}" />
+            <TextBox x:Name="inputBox" Margin="5" />
+            
+            <Label Content="Output:" Style="{StaticResource Heading}" />
+            <Label x:Name="outputLabel" Content="..." Style="{StaticResource Info}" />
+            
+            <Label Content="Statistics:" Style="{StaticResource Heading}" />
+            <Label x:Name="statisticsLabel" Content="..." Style="{StaticResource Info}" />
+        </StackPanel>
+    </DockPanel>
+</Window>
