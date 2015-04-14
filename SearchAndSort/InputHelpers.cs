@@ -28,10 +28,9 @@ namespace SearchAndSort
             });
 
             string currentNumAsString = string.Empty;
-            int currentIndex = 0;
-            while (currentIndex < numsString.Length)
+            for (int currentIndex = 0; currentIndex < numsString.Length; currentIndex++)
             {
-                if (numsString.Substring(currentIndex, 1) == " ")
+                if (numsString.Substring(currentIndex, 1) == " " && currentNumAsString != string.Empty)
                 {
                     addToNumsList(currentNumAsString);
 
@@ -41,12 +40,10 @@ namespace SearchAndSort
                 {
                     currentNumAsString += numsString.Substring(currentIndex, 1);
                 }
-
-                currentIndex++;
             }
 
             // Add last number in space-delimited string
-            if (!string.IsNullOrWhiteSpace(currentNumAsString))
+            if (currentNumAsString != string.Empty)
             {
                 addToNumsList(currentNumAsString);
             }
