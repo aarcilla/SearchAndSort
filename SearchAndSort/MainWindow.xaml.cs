@@ -17,6 +17,8 @@ namespace SearchAndSort
 {
     public partial class MainWindow : Window
     {
+        private InputHelpers inputHelpers = new InputHelpers();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -78,7 +80,7 @@ namespace SearchAndSort
                 || string.IsNullOrWhiteSpace(desiredNumBox.Text))
                 return;
 
-            int[] nums = ParseSpaceDelimitedIntegers(inputBox.Text);
+            int[] nums = inputHelpers.ParseSpaceDelimitedIntegers(inputBox.Text);
 
             int desiredNum;
             bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
@@ -107,50 +109,5 @@ namespace SearchAndSort
         {
 
         }
-
-        #region Helper methods
-
-        private int[] ParseSpaceDelimitedIntegers(string numsString)
-        {
-            List<int> nums = new List<int>();
-
-            var addToNumsList = new Action<string>((numAsString) =>
-            {
-                int num;
-                bool tryParseNum = Int32.TryParse(numAsString, out num);
-
-                if (tryParseNum)
-                    nums.Add(num);
-            });
-
-            string currentNumAsString = string.Empty;
-            int currentIndex = 0;
-            while(currentIndex < numsString.Length) 
-            {
-                if (numsString.Substring(currentIndex, 1) == " ")
-                {
-                    addToNumsList(currentNumAsString);
-
-                    currentNumAsString = string.Empty;
-
-                }
-                else
-                {
-                    currentNumAsString += numsString.Substring(currentIndex, 1);
-                }
-
-                currentIndex++;
-            }
-
-            // Add last number in space-delimited string
-            if (!string.IsNullOrWhiteSpace(currentNumAsString))
-            {
-                addToNumsList(currentNumAsString);
-            }
-
-            return nums.ToArray();
-        }
-
-        #endregion
     }
 }

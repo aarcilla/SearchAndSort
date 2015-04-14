@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Exceptions\NotInOrderException.cs" />
+    <Compile Include="InputHelpers.cs" />
     <Compile Include="Search.cs" />
     <Compile Include="Sort.cs" />
     <Page Include="MainWindow.xaml">
