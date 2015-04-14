@@ -24,7 +24,7 @@ namespace SearchAndSort
         /// Performs a selection sort for provided array of integers.
         /// </summary>
         /// <param name="numbers">Array of integers to be sorted.</param>
-        /// <returns>Array of integers in ascending order.</returns>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
         public int[] Selection(int[] numbers)
         {
             if (numbers.Length <= 0)
