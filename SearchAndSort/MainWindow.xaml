@@ -7,8 +7,8 @@
             <RadioButton x:Name="searchRadioButton" Content="Search Algorithms" 
                          Style="{StaticResource Heading}" Checked="searchRadioButton_Checked" />
             <StackPanel x:Name="searchAlgorithmsPanel">
-                <Button Content="Linear" />
-                <Button Content="Binary" />
+                <Button x:Name="linearButton" Content="Linear" Click="linearButton_Click" />
+                <Button x:Name="binaryButton" Content="Binary" Click="binaryButton_Click" />
             </StackPanel>
                 
             <RadioButton x:Name="sortRadioButton" Content="Sorting Algorithms" 
