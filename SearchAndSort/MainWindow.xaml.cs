@@ -19,6 +19,9 @@ namespace SearchAndSort
     {
         private InputHelpers inputHelpers = new InputHelpers();
 
+        private readonly Brush OkBrush = Brushes.Black;
+        private readonly Brush ErrorBrush = Brushes.DarkRed;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -87,6 +90,7 @@ namespace SearchAndSort
             }
             catch (SearchAndSort.Exceptions.NotInOrderException ex)
             {
+                outputLabel.Foreground = ErrorBrush;
                 outputLabel.Content = "Provided array of integers not sorted.";
             }
         }
@@ -122,6 +126,7 @@ namespace SearchAndSort
 
                 if (result.HasValue)
                 {
+                    outputLabel.Foreground = OkBrush;
                     outputLabel.Content = string.Format("Found {0} at index {1}.", desiredNum, result) + "\n";
 
                     var numsStringWithDesiredNumDenoted = new StringBuilder();
@@ -137,11 +142,13 @@ namespace SearchAndSort
                 }
                 else
                 {
+                    outputLabel.Foreground = ErrorBrush;
                     outputLabel.Content = string.Format("Desired number ({0}) not found.", desiredNum);
                 }
             }
             else
             {
+                outputLabel.Foreground = ErrorBrush;
                 outputLabel.Content = "Specified desired number is not a valid integer.";
             }
         }
