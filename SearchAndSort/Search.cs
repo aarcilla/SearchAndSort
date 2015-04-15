@@ -27,18 +27,22 @@
         /// </summary>
         /// <param name="numbers">An array of integers, assumed to be sorted.</param>
         /// <param name="desiredNum">The integer to be searched for.</param>
+        /// <param name="checkIfSorted">Option to skip the check of whether the array is sorted or not.</param>
         /// <returns>The array index of the desired integer (i.e. starting with 0), 
         /// or null if desired integer was not found.</returns>
-        public int? Binary(int[] numbers, int desiredNum)
+        public int? Binary(int[] numbers, int desiredNum, bool checkIfSorted = true)
         {
             // First check if array is sorted
-            for (int i = 0; i < numbers.Length - 1; i++)
+            if (checkIfSorted)
             {
-                // If the preceding integer in a pair of adjacent integers 
-                // is greater than the following integer, array isn't sorted
-                if (numbers[i] > numbers[i + 1])
+                for (int i = 0; i < numbers.Length - 1; i++)
                 {
-                    throw new SearchAndSort.Exceptions.NotInOrderException(i, numbers[i]);
+                    // If the preceding integer in a pair of adjacent integers 
+                    // is greater than the following integer, array isn't sorted
+                    if (numbers[i] > numbers[i + 1])
+                    {
+                        throw new SearchAndSort.Exceptions.NotInOrderException(i, numbers[i]);
+                    }
                 }
             }
 
