@@ -28,50 +28,18 @@ namespace SearchAndSort
 
         private void searchRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            foreach (UIElement control in searchAlgorithmsPanel.Children)
-            {
-                if (control is Button)
-                {
-                    ((Button)control).IsEnabled = true;
-                }
-            }
+            searchAlgorithmsPanel.IsEnabled = true;
+            sortAlgorithmsPanel.IsEnabled = false;
 
-            foreach (UIElement control in sortAlgorithmsPanel.Children)
-            {
-                if (control is Button)
-                {
-                    ((Button)control).IsEnabled = false;
-                }
-            }
-
-            foreach (UIElement control in searchOnlyInput.Children)
-            {
-                control.IsEnabled = true;
-            }
+            searchOnlyInput.IsEnabled = true;
         }
 
         private void sortRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            foreach (UIElement control in searchAlgorithmsPanel.Children)
-            {
-                if (control is Button)
-                {
-                    ((Button)control).IsEnabled = false;
-                }
-            }
+            searchAlgorithmsPanel.IsEnabled = false;
+            sortAlgorithmsPanel.IsEnabled = true;
 
-            foreach (UIElement control in sortAlgorithmsPanel.Children)
-            {
-                if (control is Button)
-                {
-                    ((Button)control).IsEnabled = true;
-                }
-            }
-
-            foreach (UIElement control in searchOnlyInput.Children)
-            {
-                control.IsEnabled = false;
-            }
+            searchOnlyInput.IsEnabled = false;
         }
 
         private void linearButton_Click(object sender, RoutedEventArgs e)
