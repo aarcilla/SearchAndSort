@@ -77,11 +77,18 @@ namespace SearchAndSort
         {
             Search search = new Search();
 
-            // Instead of directly passing the Search.Binary() method through,
-            // encapsulate it within another lambda delegate to be passed through
-            // so that 'checkIfSorted' parameter is handled and it adheres to the
-            // delegate 'searchAlgorithm' argument input requirements
-            HandleSearch((nums, des) => search.Binary(nums, des, true));
+            try
+            {
+                // Instead of directly passing the Search.Binary() method through,
+                // encapsulate it within another lambda delegate to be passed through
+                // so that 'checkIfSorted' parameter is handled and it adheres to the
+                // delegate 'searchAlgorithm' argument input requirements
+                HandleSearch((nums, des) => search.Binary(nums, des, true));
+            }
+            catch (SearchAndSort.Exceptions.NotInOrderException ex)
+            {
+                outputLabel.Content = "Provided array of integers not sorted.";
+            }
         }
 
 
