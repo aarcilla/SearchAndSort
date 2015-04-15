@@ -47,33 +47,8 @@ namespace SearchAndSort
 
         private void linearButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(inputBox.Text)
-                || string.IsNullOrWhiteSpace(desiredNumBox.Text))
-                return;
-
-            int[] nums = inputHelpers.ParseSpaceDelimitedIntegers(inputBox.Text);
-
-            int desiredNum;
-            bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
-
-            if (tryParseDesiredNum)
-            {
-                Search search = new Search();
-                int? result = search.Linear(nums, desiredNum);
-
-                if (result.HasValue)
-                {
-                    outputLabel.Content = string.Format("Found {0} at index {1}", desiredNum, result.Value);
-                }
-                else
-                {
-                    outputLabel.Content = "Desired number not found.";
-                }
-            }
-            else
-            {
-                outputLabel.Content = "Specified desired number is not an integer.";
-            }
+            Search search = new Search();
+            HandleSearch(search.Linear);
         }
 
         private void binaryButton_Click(object sender, RoutedEventArgs e)
