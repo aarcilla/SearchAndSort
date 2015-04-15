@@ -75,7 +75,70 @@ namespace SearchAndSort
 
         private void binaryButton_Click(object sender, RoutedEventArgs e)
         {
+            Search search = new Search();
 
+            // Instead of directly passing the Search.Binary() method through,
+            // encapsulate it within another lambda delegate to be passed through
+            // so that 'checkIfSorted' parameter is handled and it adheres to the
+            // delegate 'searchAlgorithm' argument input requirements
+            HandleSearch((nums, des) => search.Binary(nums, des, true));
         }
+
+
+        #region Helper methods
+
+        /// <summary>
+        /// Helper method that performs common tasks of the search event handlers,
+        /// including validation, parsing and appropriate output.
+        /// </summary>
+        /// <param name="searchAlgorithm">
+        /// Delegate that represents the desired search algorithm,
+        /// including input parameters for array of integers (int[]) 
+        /// and desired integer to be found (int), as well as an output parameter
+        /// for array index of desired integer.
+        /// </param>
+        private void HandleSearch(Func<int[], int, int?> searchAlgorithm)
+        {
+            if (string.IsNullOrWhiteSpace(inputBox.Text)
+                || string.IsNullOrWhiteSpace(desiredNumBox.Text))
+                return;
+
+            int[] nums = inputHelpers.ParseSpaceDelimitedIntegers(inputBox.Text);
+
+            int desiredNum;
+            bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
+
+            if (tryParseDesiredNum)
+            {
+                Search search = new Search();
+                int? result = searchAlgorithm(nums, desiredNum);
+
+                if (result.HasValue)
+                {
+                    outputLabel.Content = string.Format("Found {0} at index {1}.", desiredNum, result) + "\n";
+
+                    var numsStringWithDesiredNumDenoted = new StringBuilder();
+                    for (int i = 0; i < nums.Length; i++)
+                    {
+                        if (i == result.Value)
+                            numsStringWithDesiredNumDenoted.Append(string.Format("[{0}] ", nums[i]));
+                        else
+                            numsStringWithDesiredNumDenoted.Append(string.Format("{0} ", nums[i]));
+                    }
+
+                    outputLabel.Content += numsStringWithDesiredNumDenoted.ToString();
+                }
+                else
+                {
+                    outputLabel.Content = string.Format("Desired number ({0}) not found.", desiredNum);
+                }
+            }
+            else
+            {
+                outputLabel.Content = "Specified desired number is not a valid integer.";
+            }
+        }
+
+        #endregion
     }
 }
