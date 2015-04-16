@@ -9,7 +9,7 @@ namespace SearchAndSort.Tests
         private int[] testNumsUnordered = { 56, 9, 7, 90, 4, 13, 3, 37, 45 };
 
         [TestMethod]
-        public void SelectionSort_AscendingSuccess()
+        public void SelectionSort_Success_Ascending()
         {
             // ARRANGE
             Sort sortAlgos = new Sort();
@@ -26,7 +26,7 @@ namespace SearchAndSort.Tests
         }
 
         [TestMethod]
-        public void SelectionSort_DescendingSuccess()
+        public void SelectionSort_Success_Descending()
         {
             // ARRANGE
             Sort sortAlgos = new Sort(SortOrder.Desc);
@@ -44,7 +44,7 @@ namespace SearchAndSort.Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void SelectionSort_EmptyArrayFail()
+        public void SelectionSort_Fail_EmptyArray()
         {
             // ARRANGE
             Sort sortAlgos = new Sort();
