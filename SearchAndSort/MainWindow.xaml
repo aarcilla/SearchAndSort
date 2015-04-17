@@ -14,11 +14,11 @@
             <RadioButton x:Name="sortRadioButton" Content="Sorting Algorithms" 
                          Style="{StaticResource Heading}" Checked="sortRadioButton_Checked" />
             <StackPanel x:Name="sortAlgorithmsPanel">
-                <Button Content="Selection" />
-                <Button Content="Insertion" />
-                <Button Content="Bubble" />
-                <Button Content="Merge" />
-                <Button Content="Quick" />
+                <Button x:Name="selectionButton" Content="Selection" Click="selectionButton_Click" />
+                <Button x:Name="insertionButton" Content="Insertion" Click="insertionButton_Click" />
+                <Button x:Name="bubbleButton" Content="Bubble" Click="bubbleButton_Click" />
+                <Button x:Name="mergeButton" Content="Merge" Click="mergeButton_Click" />
+                <Button x:Name="quickButton" Content="Quick" Click="quickButton_Click" />
             </StackPanel>
         </StackPanel>
         
@@ -31,10 +31,24 @@
                 <TextBox x:Name="desiredNumBox" Margin="5" />
             </StackPanel>
             <Label Content="Output:" Style="{StaticResource Heading}" />
-            <Label x:Name="outputLabel" Content="..." Style="{StaticResource Info}" />
-            
+            <Label x:Name="outputLabel" Content="..." Style="{StaticResource Info}" >
+                <Label.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="copyAllOutputMenuItem" Header="Copy Output"
+                                  Click="copyAllOutputMenuItem_Click" />
+                    </ContextMenu>
+                </Label.ContextMenu>
+            </Label>
+
             <Label Content="Statistics:" Style="{StaticResource Heading}" />
-            <Label x:Name="statisticsLabel" Content="..." Style="{StaticResource Info}" />
+            <Label x:Name="statisticsLabel" Content="..." Style="{StaticResource Info}">
+                <Label.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="copyAllStatisticsMenuItem" Header="Copy Statistics"
+                                  Click="copyAllStatisticsMenuItem_Click" />
+                    </ContextMenu>
+                </Label.ContextMenu>
+            </Label>
         </StackPanel>
     </DockPanel>
 </Window>

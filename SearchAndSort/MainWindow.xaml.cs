@@ -29,6 +29,8 @@ namespace SearchAndSort
             searchRadioButton.IsChecked = true;
         }
 
+        #region Search/sort radio button event handlers
+
         private void searchRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             searchAlgorithmsPanel.IsEnabled = true;
@@ -44,6 +46,11 @@ namespace SearchAndSort
 
             searchOnlyInput.IsEnabled = false;
         }
+
+        #endregion
+
+
+        #region Search button event handlers
 
         private void linearButton_Click(object sender, RoutedEventArgs e)
         {
@@ -69,6 +76,54 @@ namespace SearchAndSort
                 outputLabel.Content = "Provided array of integers not sorted.";
             }
         }
+
+        #endregion
+
+
+        #region Sort button event handlers
+
+        private void selectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Sort sort = new Sort();
+            HandleSort(sort.Selection);
+        }
+
+        private void insertionButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bubbleButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mergeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void quickButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+
+        #region Other event handlers
+
+        private void copyAllOutputMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText((string)outputLabel.Content);
+        }
+
+        private void copyAllStatisticsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText((string)statisticsLabel.Content);
+        }
+
+        #endregion
 
 
         #region Helper methods
@@ -126,6 +181,35 @@ namespace SearchAndSort
                 outputLabel.Foreground = ErrorBrush;
                 outputLabel.Content = "Specified desired number is not a valid integer.";
             }
+        }
+
+        /// <summary>
+        /// Helper method that performs common tasks of the sort event handlers,
+        /// including validation, parsing, and appropriate output.
+        /// </summary>
+        /// <param name="sortAlgorithm">
+        /// Delegate that represents the desired sort algorithm, including an
+        /// input parameter for array of integers to be sorted (1st int[])
+        /// and an output parameter for the aforementioned array now sorted.
+        /// </param>
+        private void HandleSort(Func<int[], int[]> sortAlgorithm)
+        {
+            if (string.IsNullOrWhiteSpace(inputBox.Text))
+                return;
+
+            int[] nums = inputHelpers.ParseSpaceDelimitedIntegers(inputBox.Text);
+
+            int[] numsSorted = sortAlgorithm(nums);
+
+            StringBuilder numsStringSorted = new StringBuilder();
+            foreach (int num in numsSorted)
+            {
+                numsStringSorted.Append(num);
+                numsStringSorted.Append(" ");
+            }
+
+            outputLabel.Foreground = OkBrush;
+            outputLabel.Content = numsStringSorted.ToString();
         }
 
         #endregion
