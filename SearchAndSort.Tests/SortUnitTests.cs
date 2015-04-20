@@ -7,6 +7,8 @@ namespace SearchAndSort.Tests
     public class SortUnitTests
     {
         private int[] testNumsUnordered = { 56, 9, 7, 90, 4, 13, 3, 37, 45 };
+        private int[] testNumsOrderedAsc = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
+        private int[] testNumsOrderedDesc = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
 
         #region Selection sort unit tests
 
@@ -20,10 +22,9 @@ namespace SearchAndSort.Tests
             int[] result = sortAlgos.Selection(testNumsUnordered);
 
             // ASSERT
-            int[] testNumsOrdered = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.AreEqual(testNumsOrdered[i], result[i]);
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
             }
         }
 
@@ -37,10 +38,9 @@ namespace SearchAndSort.Tests
             int[] result = sortAlgos.Selection(testNumsUnordered);
 
             // ASSERT
-            int[] testNumsOrdered = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.AreEqual(testNumsOrdered[i], result[i]);
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
             }
         }
 
@@ -73,10 +73,9 @@ namespace SearchAndSort.Tests
             int[] result = sortAlgos.Insertion(testNumsUnordered);
 
             // ASSERT
-            int[] testNumsOrdered = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.AreEqual(testNumsOrdered[i], result[i]);
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
             }
         }
 
@@ -90,10 +89,9 @@ namespace SearchAndSort.Tests
             int[] result = sortAlgos.Insertion(testNumsUnordered);
 
             // ASSERT
-            int[] testNumsOrdered = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.AreEqual(testNumsOrdered[i], result[i]);
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
             }
         }
 
@@ -122,10 +120,9 @@ namespace SearchAndSort.Tests
             int[] result = sortAlgos.InsertionSlow(testNumsUnordered);
 
             // ASSERT
-            int[] testNumsOrdered = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.AreEqual(testNumsOrdered[i], result[i]);
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
             }
         }
 
@@ -139,10 +136,9 @@ namespace SearchAndSort.Tests
             int[] result = sortAlgos.InsertionSlow(testNumsUnordered);
 
             // ASSERT
-            int[] testNumsOrdered = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.AreEqual(testNumsOrdered[i], result[i]);
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
             }
         }
 
