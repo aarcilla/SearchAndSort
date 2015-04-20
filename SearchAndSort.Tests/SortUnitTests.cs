@@ -194,6 +194,21 @@ namespace SearchAndSort.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void BubbleSortSlowest_Fail_EmptyArray()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+            int[] testNums = { };
+
+            // ACT
+            sortAlgos.BubbleSlowest(testNums);
+
+            // ASSERT
+            // ExpectedException attribute
+        }
+
+        [TestMethod]
         public void BubbleSortSlower_Success()
         {
             // ARRANGE
@@ -226,6 +241,21 @@ namespace SearchAndSort.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void BubbleSortSlower_Fail_EmptyArray()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+            int[] testNums = { };
+
+            // ACT
+            sortAlgos.BubbleSlower(testNums);
+
+            // ASSERT
+            // ExpectedException attribute
+        }
+
+        [TestMethod]
         public void BubbleSort_Success()
         {
             // ARRANGE
@@ -255,6 +285,21 @@ namespace SearchAndSort.Tests
             {
                 Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
             }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void BubbleSort_Fail_EmptyArray()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+            int[] testNums = { };
+
+            // ACT
+            sortAlgos.Bubble(testNums);
+
+            // ASSERT
+            // ExpectedException attribute
         }
 
         #endregion

@@ -123,6 +123,9 @@ namespace SearchAndSort
 
         public int[] BubbleSlowest(int[] numbers)
         {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
             bool swapped;
             do
             {
@@ -146,6 +149,9 @@ namespace SearchAndSort
 
         public int[] BubbleSlower(int[] numbers)
         {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
             bool swapped;
             do
             {
@@ -180,6 +186,9 @@ namespace SearchAndSort
         /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
         public int[] Bubble(int[] numbers)
         {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
             int maxIndex = numbers.Length;
             int currMaxSwapIndex;
 
