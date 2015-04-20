@@ -112,6 +112,14 @@ namespace SearchAndSort
 
         #region Other event handlers
 
+        private void descOrderCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (descOrderCheckBox.IsChecked.Value)
+                sort.SortOrder = SortOrder.Desc;
+            else
+                sort.SortOrder = SortOrder.Asc;
+        }
+
         private void copyAllOutputMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText((string)outputLabel.Content);

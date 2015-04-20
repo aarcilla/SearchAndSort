@@ -14,6 +14,7 @@
             <RadioButton x:Name="sortRadioButton" Content="Sorting Algorithms" 
                          Style="{StaticResource Heading}" Checked="sortRadioButton_Checked" />
             <StackPanel x:Name="sortAlgorithmsPanel">
+                <CheckBox x:Name="descOrderCheckBox" Content="Descending?" Click="descOrderCheckBox_Click" />
                 <Button x:Name="selectionButton" Content="Selection" Click="selectionButton_Click" />
                 <Button x:Name="insertionButton" Content="Insertion" Click="insertionButton_Click" />
                 <Button x:Name="bubbleButton" Content="Bubble" Click="bubbleButton_Click" />
