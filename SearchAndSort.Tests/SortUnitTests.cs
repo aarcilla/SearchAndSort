@@ -158,5 +158,105 @@ namespace SearchAndSort.Tests
         }
 
         #endregion
+
+        #region Bubble sort unit tests
+
+        [TestMethod]
+        public void BubbleSortSlowest_Success()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+
+            // ACT
+            int[] result = sortAlgos.BubbleSlowest(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BubbleSortSlowest_Success_Descending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort(SortOrder.Desc);
+
+            // ACT
+            int[] result = sortAlgos.BubbleSlowest(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BubbleSortSlower_Success()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+
+            // ACT
+            int[] result = sortAlgos.BubbleSlower(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BubbleSortSlower_Success_Descending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort(SortOrder.Desc);
+
+            // ACT
+            int[] result = sortAlgos.BubbleSlower(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BubbleSort_Success()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+
+            // ACT
+            int[] result = sortAlgos.Bubble(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BubbleSort_Success_Descending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort(SortOrder.Desc);
+
+            // ACT
+            int[] result = sortAlgos.Bubble(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
+            }
+        }
+
+        #endregion
     }
 }

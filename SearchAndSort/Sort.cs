@@ -120,5 +120,89 @@ namespace SearchAndSort
 
             return numbers;
         }
+
+        public int[] BubbleSlowest(int[] numbers)
+        {
+            bool swapped;
+            do
+            {
+                swapped = false;        // Reset for each full pass
+                for (int i = 1; i < numbers.Length; i++)
+                {
+                    if ((SortOrder == SortOrder.Asc && numbers[i] < numbers[i - 1])
+                        || (SortOrder == SortOrder.Desc && numbers[i] > numbers[i - 1]))
+                    {
+                        int temp = numbers[i - 1];
+                        numbers[i - 1] = numbers[i];
+                        numbers[i] = temp;
+
+                        swapped = true;
+                    }
+                }
+            } while (swapped);
+
+            return numbers;
+        }
+
+        public int[] BubbleSlower(int[] numbers)
+        {
+            bool swapped;
+            do
+            {
+                int unsortedPortionLength = numbers.Length;
+                swapped = false;
+                
+                for (int i = 1; i < unsortedPortionLength; i++)
+                {
+                    if ((SortOrder == SortOrder.Asc && numbers[i] < numbers[i - 1])
+                        || (SortOrder == SortOrder.Desc && numbers[i] > numbers[i - 1]))
+                    {
+                        int temp = numbers[i - 1];
+                        numbers[i - 1] = numbers[i];
+                        numbers[i] = temp;
+
+                        swapped = true;
+                    }
+                }
+
+                // After the n-th pass, the n-th largest number (i.e. from end) is already in its 
+                // sorted position, so don't bother with checking them in future passes
+                unsortedPortionLength--;
+            } while (swapped);
+
+            return numbers;
+        }
+
+        /// <summary>
+        /// Performs a bubble sort for provided array of integers.
+        /// </summary>
+        /// <param name="numbers">Array of integers to be sorted.</param>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
+        public int[] Bubble(int[] numbers)
+        {
+            int maxIndex = numbers.Length;
+            int currMaxSwapIndex;
+
+            do {
+                currMaxSwapIndex = 0;        // Reset for each full pass
+
+                for(int i = 1; i < maxIndex; i++)
+                {
+                    if ((SortOrder == SortOrder.Asc && numbers[i] < numbers[i - 1])
+                        || (SortOrder == SortOrder.Desc && numbers[i] > numbers[i - 1]))
+                    {
+                        int temp = numbers[i - 1];
+                        numbers[i - 1] = numbers[i];
+                        numbers[i] = temp;
+
+                        currMaxSwapIndex = i;
+                    }
+                }
+
+                maxIndex = currMaxSwapIndex;
+            } while (maxIndex > 0);
+
+            return numbers;
+        }
     }
 }
