@@ -38,19 +38,10 @@ namespace SearchAndSort
 
                 for (int j = i + 1; j < numbers.Length; j++)
                 {
-                    if (SortOrder == SortOrder.Asc)
+                    if ((SortOrder == SortOrder.Asc && numbers[currSortIndex] > numbers[j])
+                        || (SortOrder == SortOrder.Desc && numbers[currSortIndex] < numbers[j]))
                     {
-                        if (numbers[j] < numbers[currSortIndex])
-                        {
-                            currSortIndex = j;
-                        }
-                    }
-                    else if (SortOrder == SortOrder.Desc)
-                    {
-                        if (numbers[j] > numbers[currSortIndex])
-                        {
-                            currSortIndex = j;
-                        }
+                        currSortIndex = j;
                     }
                 }
 
@@ -75,8 +66,8 @@ namespace SearchAndSort
                     // or lesser (descending) integers compared to the current integer
                     // (numbers[j]) is what makes this a slightly slower insertion sort algorithm;
                     // the faster version only makes an assignment ONCE at its rightful position
-                    if ((SortOrder == SortOrder.Asc && numbers[j] < numbers[j - 1])
-                        || (SortOrder == SortOrder.Desc && numbers[j] > numbers[j - 1]))
+                    if ((SortOrder == SortOrder.Asc && numbers[j - 1] > numbers[j])
+                        || (SortOrder == SortOrder.Desc && numbers[j - 1] < numbers[j]))
                     {
                         int temp = numbers[j - 1];
                         numbers[j - 1] = numbers[j];
@@ -105,8 +96,8 @@ namespace SearchAndSort
 
                 // Shift numbers greater (ascending) or lesser (descending) 
                 // than the current number in the sorted portion to the right
-                while(j > 0 && ((SortOrder == SortOrder.Asc && currNum < numbers[j - 1])
-                    || (SortOrder == SortOrder.Desc && currNum > numbers[j - 1])))
+                while(j > 0 && ((SortOrder == SortOrder.Asc && numbers[j - 1] > currNum)
+                    || (SortOrder == SortOrder.Desc && numbers[j - 1] < currNum)))
                 {
                     numbers[j] = numbers[j - 1];
                     j--;
@@ -132,8 +123,8 @@ namespace SearchAndSort
                 swapped = false;        // Reset for each full pass
                 for (int i = 1; i < numbers.Length; i++)
                 {
-                    if ((SortOrder == SortOrder.Asc && numbers[i] < numbers[i - 1])
-                        || (SortOrder == SortOrder.Desc && numbers[i] > numbers[i - 1]))
+                    if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
+                        || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
                         int temp = numbers[i - 1];
                         numbers[i - 1] = numbers[i];
@@ -160,8 +151,8 @@ namespace SearchAndSort
                 
                 for (int i = 1; i < unsortedPortionLength; i++)
                 {
-                    if ((SortOrder == SortOrder.Asc && numbers[i] < numbers[i - 1])
-                        || (SortOrder == SortOrder.Desc && numbers[i] > numbers[i - 1]))
+                    if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
+                        || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
                         int temp = numbers[i - 1];
                         numbers[i - 1] = numbers[i];
@@ -197,8 +188,8 @@ namespace SearchAndSort
 
                 for(int i = 1; i < maxIndex; i++)
                 {
-                    if ((SortOrder == SortOrder.Asc && numbers[i] < numbers[i - 1])
-                        || (SortOrder == SortOrder.Desc && numbers[i] > numbers[i - 1]))
+                    if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
+                        || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
                         int temp = numbers[i - 1];
                         numbers[i - 1] = numbers[i];
