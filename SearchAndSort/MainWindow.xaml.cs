@@ -90,7 +90,8 @@ namespace SearchAndSort
 
         private void insertionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Sort sort = new Sort();
+            HandleSort(sort.Insertion);
         }
 
         private void bubbleButton_Click(object sender, RoutedEventArgs e)
