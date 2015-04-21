@@ -53,32 +53,6 @@ namespace SearchAndSort
             return numbers;
         }
 
-        public int[] InsertionSlow(int[] numbers)
-        {
-            if (numbers.Length <= 0)
-                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
-
-            for (int i = 1; i < numbers.Length; i++)
-            {
-                for (int j = i; j > 0; j--)
-                {
-                    // The array item swapping for ALL greater (ascending)
-                    // or lesser (descending) integers compared to the current integer
-                    // (numbers[j]) is what makes this a slightly slower insertion sort algorithm;
-                    // the faster version only makes an assignment ONCE at its rightful position
-                    if ((SortOrder == SortOrder.Asc && numbers[j - 1] > numbers[j])
-                        || (SortOrder == SortOrder.Desc && numbers[j - 1] < numbers[j]))
-                    {
-                        int temp = numbers[j - 1];
-                        numbers[j - 1] = numbers[j];
-                        numbers[j] = temp;
-                    }
-                }
-            }
-
-            return numbers;
-        }
-
         /// <summary>
         /// Performs a insertion sort for provided array of integers.
         /// </summary>
@@ -107,6 +81,69 @@ namespace SearchAndSort
                 // numbers in the sorted portion, assign the currently evaluated number
                 // to its rightful position in the sorted portion
                 numbers[j] = currNum;
+            }
+
+            return numbers;
+        }
+
+        /// <summary>
+        /// Performs a bubble sort for provided array of integers.
+        /// </summary>
+        /// <param name="numbers">Array of integers to be sorted.</param>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
+        public int[] Bubble(int[] numbers)
+        {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
+            int maxIndex = numbers.Length;
+            int currMaxSwapIndex;
+
+            do {
+                currMaxSwapIndex = 0;        // Reset for each full pass
+
+                for(int i = 1; i < maxIndex; i++)
+                {
+                    if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
+                        || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
+                    {
+                        int temp = numbers[i - 1];
+                        numbers[i - 1] = numbers[i];
+                        numbers[i] = temp;
+
+                        currMaxSwapIndex = i;
+                    }
+                }
+
+                maxIndex = currMaxSwapIndex;
+            } while (maxIndex > 0);
+
+            return numbers;
+        }
+
+        #region Unoptimised sorting algorithms
+
+        public int[] InsertionSlow(int[] numbers)
+        {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                for (int j = i; j > 0; j--)
+                {
+                    // The array item swapping for ALL greater (ascending)
+                    // or lesser (descending) integers compared to the current integer
+                    // (numbers[j]) is what makes this a slightly slower insertion sort algorithm;
+                    // the faster version only makes an assignment ONCE at its rightful position
+                    if ((SortOrder == SortOrder.Asc && numbers[j - 1] > numbers[j])
+                        || (SortOrder == SortOrder.Desc && numbers[j - 1] < numbers[j]))
+                    {
+                        int temp = numbers[j - 1];
+                        numbers[j - 1] = numbers[j];
+                        numbers[j] = temp;
+                    }
+                }
             }
 
             return numbers;
@@ -148,7 +185,7 @@ namespace SearchAndSort
             {
                 int unsortedPortionLength = numbers.Length;
                 swapped = false;
-                
+
                 for (int i = 1; i < unsortedPortionLength; i++)
                 {
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
@@ -170,39 +207,6 @@ namespace SearchAndSort
             return numbers;
         }
 
-        /// <summary>
-        /// Performs a bubble sort for provided array of integers.
-        /// </summary>
-        /// <param name="numbers">Array of integers to be sorted.</param>
-        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
-        public int[] Bubble(int[] numbers)
-        {
-            if (numbers.Length <= 0)
-                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
-
-            int maxIndex = numbers.Length;
-            int currMaxSwapIndex;
-
-            do {
-                currMaxSwapIndex = 0;        // Reset for each full pass
-
-                for(int i = 1; i < maxIndex; i++)
-                {
-                    if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
-                        || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
-                    {
-                        int temp = numbers[i - 1];
-                        numbers[i - 1] = numbers[i];
-                        numbers[i] = temp;
-
-                        currMaxSwapIndex = i;
-                    }
-                }
-
-                maxIndex = currMaxSwapIndex;
-            } while (maxIndex > 0);
-
-            return numbers;
-        }
+        #endregion
     }
 }
