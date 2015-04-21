@@ -151,7 +151,7 @@ namespace SearchAndSort
                 || string.IsNullOrWhiteSpace(desiredNumBox.Text))
                 return;
 
-            int[] nums = inputHelpers.ParseSpaceDelimitedIntegers(inputBox.Text);
+            int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
 
             int desiredNum;
             bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
@@ -201,7 +201,7 @@ namespace SearchAndSort
             if (string.IsNullOrWhiteSpace(inputBox.Text))
                 return;
 
-            int[] nums = inputHelpers.ParseSpaceDelimitedIntegers(inputBox.Text);
+            int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
 
             int[] numsSorted = sortAlgorithm(nums);
 
