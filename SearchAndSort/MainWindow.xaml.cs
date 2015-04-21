@@ -114,7 +114,7 @@ namespace SearchAndSort
 
         private void descOrderCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            if (descOrderCheckBox.IsChecked.Value)
+            if ((sender as CheckBox).IsChecked.Value)
                 sort.SortOrder = SortOrder.Desc;
             else
                 sort.SortOrder = SortOrder.Asc;
@@ -155,39 +155,36 @@ namespace SearchAndSort
 
             int desiredNum;
             bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
-
-            if (tryParseDesiredNum)
-            {
-                Search search = new Search();
-                int? result = searchAlgorithm(nums, desiredNum);
-
-                if (result.HasValue)
-                {
-                    outputLabel.Foreground = OkBrush;
-                    outputLabel.Content = string.Format("Found {0} at index {1}.", desiredNum, result) + "\n";
-
-                    var numsStringWithDesiredNumDenoted = new StringBuilder();
-                    for (int i = 0; i < nums.Length; i++)
-                    {
-                        if (i == result.Value)
-                            numsStringWithDesiredNumDenoted.Append(string.Format("[{0}] ", nums[i]));
-                        else
-                            numsStringWithDesiredNumDenoted.Append(string.Format("{0} ", nums[i]));
-                    }
-
-                    outputLabel.Content += numsStringWithDesiredNumDenoted.ToString();
-                }
-                else
-                {
-                    outputLabel.Foreground = ErrorBrush;
-                    outputLabel.Content = string.Format("Desired number ({0}) not found.", desiredNum);
-                }
-            }
-            else
+            if (!tryParseDesiredNum)
             {
                 outputLabel.Foreground = ErrorBrush;
                 outputLabel.Content = "Specified desired number is not a valid integer.";
+                return;
             }
+
+            int? result = searchAlgorithm(nums, desiredNum);
+            if (!result.HasValue)
+            {
+                outputLabel.Foreground = ErrorBrush;
+                outputLabel.Content = string.Format("Desired number ({0}) not found.", desiredNum);
+                return;
+            }
+
+            outputLabel.Foreground = OkBrush;
+            outputLabel.Content = string.Format("Found {0} at index {1}.", desiredNum, result) + "\n";
+
+            // Build a string of the input array with the desired number 
+            // surrounded by square parentheses to highlight/visualise its position
+            var numsStringWithDesiredNumDenoted = new StringBuilder();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i == result.Value)
+                    numsStringWithDesiredNumDenoted.Append(string.Format("[{0}] ", nums[i]));
+                else
+                    numsStringWithDesiredNumDenoted.Append(string.Format("{0} ", nums[i]));
+            }
+
+            outputLabel.Content += numsStringWithDesiredNumDenoted.ToString();
         }
 
         /// <summary>
