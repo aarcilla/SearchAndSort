@@ -121,6 +121,67 @@ namespace SearchAndSort
             return numbers;
         }
 
+        public int[] Quick(int[] numbers)
+        {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
+            return QuickRecursive(numbers, 0, numbers.Length - 1);
+        }
+
+        #region Quick sort helper methods
+
+        private int[] QuickRecursive(int[] numbers, int low, int high)
+        {
+            if (low < high)
+            {
+                int p = Partition(numbers, low, high);
+                QuickRecursive(numbers, low, p - 1);
+                QuickRecursive(numbers, p + 1, high);
+            }
+
+            return numbers;
+        }
+
+        private int Partition(int[] numbers, int low, int high)
+        {
+            int pivotIndex = (new Random()).Next(low, high);
+            int pivotValue = numbers[pivotIndex];
+
+            // Move pivot value to highest position of the subarray
+            int temp = numbers[high];
+            numbers[high] = pivotValue;
+            numbers[pivotIndex] = temp;
+
+            int storeIndex = low;
+
+            // Compare other array elements against pivot value
+            for (int i = low; i < high; i++)
+            {
+                if ((SortOrder == SortOrder.Asc && numbers[i] <= pivotValue)
+                    || (SortOrder == SortOrder.Desc && numbers[i] >= pivotValue))
+                {
+                    temp = numbers[storeIndex];
+                    numbers[storeIndex] = numbers[i];
+                    numbers[i] = temp;
+                    
+                    // By the end of the loop traversal, this will hold the correct position 
+                    //for the pivot, as we have essentially counted how many subarray values 
+                    // are lesser than or equal to it (for asc.; greater than for desc.)
+                    storeIndex++;
+                }
+            }
+
+            // Move pivot into its correct position in the subarray
+            temp = numbers[high];
+            numbers[high] = numbers[storeIndex];
+            numbers[storeIndex] = temp;
+
+            return storeIndex;
+        }
+
+        #endregion
+
         #region Unoptimised sorting algorithms
 
         public int[] InsertionSlow(int[] numbers)

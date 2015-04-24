@@ -104,7 +104,7 @@ namespace SearchAndSort
 
         private void quickButton_Click(object sender, RoutedEventArgs e)
         {
-
+            HandleSort(sort.Quick);
         }
 
         #endregion

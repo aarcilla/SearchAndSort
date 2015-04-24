@@ -303,5 +303,56 @@ namespace SearchAndSort.Tests
         }
 
         #endregion
+
+        #region Quick sort unit tests
+
+        [TestMethod]
+        public void QuickSort_Success()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+
+            // ACT
+            int[] result = sortAlgos.Quick(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void QuickSort_Success_Descending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort(SortOrder.Desc);
+
+            // ACT
+            int[] result = sortAlgos.Quick(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void QuickSort_Fail_EmptyArray()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+            int[] testNums = { };
+
+            // ACT
+            sortAlgos.Quick(testNums);
+
+            // ASSERT
+            // ExpectedException attribute
+        }
+
+        #endregion
     }
 }
