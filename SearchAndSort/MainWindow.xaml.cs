@@ -114,10 +114,7 @@ namespace SearchAndSort
 
         private void descOrderCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as CheckBox).IsChecked.Value)
-                sort.SortOrder = SortOrder.Desc;
-            else
-                sort.SortOrder = SortOrder.Asc;
+            sort.SortOrder = (sender as CheckBox).IsChecked.Value ? SortOrder.Desc: SortOrder.Asc;
         }
 
         private void copyAllOutputMenuItem_Click(object sender, RoutedEventArgs e)
@@ -203,10 +200,10 @@ namespace SearchAndSort
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
 
-            int[] numsSorted = sortAlgorithm(nums);
+            sortAlgorithm(nums);
 
             StringBuilder numsStringSorted = new StringBuilder();
-            foreach (int num in numsSorted)
+            foreach (int num in nums)
             {
                 numsStringSorted.Append(num);
                 numsStringSorted.Append(" ");

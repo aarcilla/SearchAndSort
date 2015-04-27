@@ -129,12 +129,14 @@ namespace SearchAndSort
             if (numbers.Length <= 0)
                 throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
 
-            return QuickRecursive(numbers, 0, numbers.Length - 1);
+            QuickRecursive(numbers, 0, numbers.Length - 1);
+
+            return numbers;
         }
 
         #region Quick sort helper methods
 
-        private int[] QuickRecursive(int[] numbers, int low, int high)
+        private void QuickRecursive(int[] numbers, int low, int high)
         {
             if (low < high)
             {
@@ -142,8 +144,6 @@ namespace SearchAndSort
                 QuickRecursive(numbers, low, p - 1);
                 QuickRecursive(numbers, p + 1, high);
             }
-
-            return numbers;
         }
 
         private int Partition(int[] numbers, int low, int high)
@@ -219,7 +219,7 @@ namespace SearchAndSort
         {
             int i0 = iBegin, i1 = iMiddle;
 
-            Func<int, int, bool> orderConditionBySort = (numLeft, numRight) =>
+            Func<int, int, bool> conditionBySortOrder = (numLeft, numRight) =>
                 (SortOrder == SortOrder.Asc && numLeft <= numRight)
                     || (SortOrder == SortOrder.Desc && numLeft >= numRight);
 
@@ -228,7 +228,7 @@ namespace SearchAndSort
                 // 1. Left half still unsorted, AND EITHER
                 // 1a. Right half all sorted (i.e. left is all that's left to sort) OR
                 // 1b. Curr left half num <= curr right half num (for asc.; >= for desc.)
-                if (i0 < iMiddle && (i1 >= iEnd || orderConditionBySort(numbers[i0], numbers[i1])))
+                if (i0 < iMiddle && (i1 >= iEnd || conditionBySortOrder(numbers[i0], numbers[i1])))
                 {
                     mergingNumbers[i] = numbers[i0];
                     i0++;
