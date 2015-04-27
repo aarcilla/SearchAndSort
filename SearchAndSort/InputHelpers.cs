@@ -22,7 +22,7 @@ namespace SearchAndSort
         {
             List<int> nums = new List<int>();
 
-            var addToNumsList = new Action<string>((numAsString) =>
+            Action<string> addToNumsList = (numAsString) =>
             {
                 int num;
 
@@ -32,15 +32,9 @@ namespace SearchAndSort
 
                 if (tryParseNum)
                     nums.Add(num);
-            });
+            };
 
-            var isDelimiterValid = new Func<char, bool>((delimiter) =>
-            {
-                if (validDelimiters.Contains(delimiter))
-                    return true;
-
-                return false;
-            });
+            Func<char, bool> isDelimiterValid = (del) => validDelimiters.Contains(del);
 
             string currNumAsString = string.Empty;
             for (int currIndex = 0; currIndex < numsString.Length; currIndex++)
