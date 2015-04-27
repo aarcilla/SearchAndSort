@@ -99,7 +99,7 @@ namespace SearchAndSort
 
         private void mergeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            HandleSort(sort.Merge);
         }
 
         private void quickButton_Click(object sender, RoutedEventArgs e)

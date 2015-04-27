@@ -185,6 +185,64 @@ namespace SearchAndSort
 
         #endregion
 
+        public int[] Merge(int[] numbers)
+        {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
+            MergeRecursive(numbers, 0, numbers.Length, new int[numbers.Length]);
+
+            return numbers;
+        }
+
+        #region Merge sort helper methods
+
+        private void MergeRecursive(int[] numbers, int iBegin, int iEnd, int[] mergingNumbers)
+        {
+            if (iEnd - iBegin > 1)
+            {
+                // Recursively split runs into 2 halves until run size == 1
+                int iMiddle = (iBegin + iEnd) / 2;
+                MergeRecursive(numbers, iBegin, iMiddle, mergingNumbers);
+                MergeRecursive(numbers, iMiddle, iEnd, mergingNumbers);
+                MergeHalves(numbers, iBegin, iMiddle, iEnd, mergingNumbers);
+
+                // Copy sorted array (from merging process) into initial array
+                for (int i = iBegin; i < iEnd; i++)
+                {
+                    numbers[i] = mergingNumbers[i];
+                }
+            }
+        }
+
+        private void MergeHalves(int[] numbers, int iBegin, int iMiddle, int iEnd, int[] mergingNumbers)
+        {
+            int i0 = iBegin, i1 = iMiddle;
+
+            Func<int, int, bool> orderConditionBySort = (numLeft, numRight) =>
+                (SortOrder == SortOrder.Asc && numLeft <= numRight)
+                    || (SortOrder == SortOrder.Desc && numLeft >= numRight);
+
+            for (int i = iBegin; i < iEnd; i++)
+            {
+                // 1. Left half still unsorted, AND EITHER
+                // 1a. Right half all sorted (i.e. left is all that's left to sort) OR
+                // 1b. Curr left half num <= curr right half num (for asc.; >= for desc.)
+                if (i0 < iMiddle && (i1 >= iEnd || orderConditionBySort(numbers[i0], numbers[i1])))
+                {
+                    mergingNumbers[i] = numbers[i0];
+                    i0++;
+                }
+                else
+                {
+                    mergingNumbers[i] = numbers[i1];
+                    i1++;
+                }
+            }
+        }
+
+        #endregion
+
         #region Unoptimised sorting algorithms
 
         public int[] InsertionSlow(int[] numbers)
