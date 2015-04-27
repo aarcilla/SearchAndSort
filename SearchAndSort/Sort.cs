@@ -45,9 +45,12 @@ namespace SearchAndSort
                     }
                 }
 
-                int temp = numbers[i];
-                numbers[i] = numbers[currSortIndex];
-                numbers[currSortIndex] = temp;
+                if (currSortIndex != i)
+                {
+                    int temp = numbers[i];
+                    numbers[i] = numbers[currSortIndex];
+                    numbers[currSortIndex] = temp;
+                }
             }
 
             return numbers;
