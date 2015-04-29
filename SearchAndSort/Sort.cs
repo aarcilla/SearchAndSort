@@ -217,7 +217,8 @@ namespace SearchAndSort
 
         private void MergeHalves(int[] numbers, int iBegin, int iMiddle, int iEnd, int[] mergingNumbers)
         {
-            int i0 = iBegin, i1 = iMiddle;
+            // Traversal pointers for left and right halves
+            int currLeftInd = iBegin, currRightInd = iMiddle;
 
             Func<int, int, bool> conditionBySortOrder = (numLeft, numRight) =>
                 (SortOrder == SortOrder.Asc && numLeft <= numRight)
@@ -228,15 +229,15 @@ namespace SearchAndSort
                 // 1. Left half still unsorted, AND EITHER
                 // 1a. Right half all sorted (i.e. left is all that's left to sort) OR
                 // 1b. Curr left half num <= curr right half num (for asc.; >= for desc.)
-                if (i0 < iMiddle && (i1 >= iEnd || conditionBySortOrder(numbers[i0], numbers[i1])))
+                if (currLeftInd < iMiddle && (currRightInd >= iEnd || conditionBySortOrder(numbers[currLeftInd], numbers[currRightInd])))
                 {
-                    mergingNumbers[i] = numbers[i0];
-                    i0++;
+                    mergingNumbers[i] = numbers[currLeftInd];
+                    currLeftInd++;
                 }
                 else
                 {
-                    mergingNumbers[i] = numbers[i1];
-                    i1++;
+                    mergingNumbers[i] = numbers[currRightInd];
+                    currRightInd++;
                 }
             }
         }
