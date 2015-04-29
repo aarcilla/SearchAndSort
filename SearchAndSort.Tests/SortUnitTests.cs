@@ -404,5 +404,56 @@ namespace SearchAndSort.Tests
         }
 
         #endregion
+
+        #region .NET sort unit tests
+
+        [TestMethod]
+        public void DotNetSort_Success_Ascending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+
+            // ACT
+            int[] result = sortAlgos.DotNet(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void DotNetSort_Success_Descending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort(SortOrder.Desc);
+
+            // ACT
+            int[] result = sortAlgos.DotNet(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void DotNetSort_Fail_EmptyArray()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+            int[] testNums = { };
+
+            // ACT
+            sortAlgos.DotNet(testNums);
+
+            // ASSERT
+            // ExpectedException attribute
+        }
+
+        #endregion
     }
 }

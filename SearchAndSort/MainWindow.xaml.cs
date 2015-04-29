@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,6 +108,11 @@ namespace SearchAndSort
             HandleSort(sort.Quick);
         }
 
+        private void dotNetButton_Click(object sender, RoutedEventArgs e)
+        {
+            HandleSort(sort.DotNet);
+        }
+
         #endregion
 
 
@@ -159,7 +165,13 @@ namespace SearchAndSort
                 return;
             }
 
+            Stopwatch stopwatch = Stopwatch.StartNew();
             int? result = searchAlgorithm(nums, desiredNum);
+            stopwatch.Stop();
+
+            statisticsLabel.Content =
+                string.Format("{0} ticks", stopwatch.ElapsedTicks);
+
             if (!result.HasValue)
             {
                 outputLabel.Foreground = ErrorBrush;
@@ -199,8 +211,13 @@ namespace SearchAndSort
                 return;
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
-
+            
+            Stopwatch stopwatch = Stopwatch.StartNew();
             sortAlgorithm(nums);
+            stopwatch.Stop();
+
+            statisticsLabel.Content = 
+                string.Format("{0} ticks", stopwatch.ElapsedTicks);
 
             StringBuilder numsStringSorted = new StringBuilder();
             foreach (int num in nums)

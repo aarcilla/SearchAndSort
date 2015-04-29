@@ -244,6 +244,21 @@ namespace SearchAndSort
 
         #endregion
 
+        /// <summary>
+        /// Performs a .NET Framework sort for provided array of integers.
+        /// </summary>
+        /// <param name="numbers">Array of integers to be sorted.</param>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
+        public int[] DotNet(int[] numbers)
+        {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
+            Array.Sort(numbers, 
+                SortOrder == SortOrder.Desc ? new IntArrayDescendingComparer() : null);
+            return numbers;
+        }
+
         #region Unoptimised sorting algorithms
 
         public int[] InsertionSlow(int[] numbers)
