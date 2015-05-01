@@ -20,6 +20,7 @@
                 <Button x:Name="bubbleButton" Content="Bubble" Click="bubbleButton_Click" />
                 <Button x:Name="mergeButton" Content="Merge" Click="mergeButton_Click" />
                 <Button x:Name="quickButton" Content="Quick" Click="quickButton_Click" />
+                <Button x:Name="heapButton" Content="Heap" Click="heapButton_Click" />
                 <Button x:Name="dotNetButton" Content=".NET" Click="dotNetButton_Click" />
             </StackPanel>
         </StackPanel>

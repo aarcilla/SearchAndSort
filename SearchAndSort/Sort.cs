@@ -47,14 +47,13 @@ namespace SearchAndSort
 
                 if (currSortIndex != i)
                 {
-                    int temp = numbers[i];
-                    numbers[i] = numbers[currSortIndex];
-                    numbers[currSortIndex] = temp;
+                    Swap(numbers, i, currSortIndex);
                 }
             }
 
             return numbers;
         }
+
 
         /// <summary>
         /// Performs a insertion sort for provided array of integers.
@@ -89,6 +88,7 @@ namespace SearchAndSort
             return numbers;
         }
 
+
         /// <summary>
         /// Performs a bubble sort for provided array of integers.
         /// </summary>
@@ -110,10 +110,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
-                        int temp = numbers[i - 1];
-                        numbers[i - 1] = numbers[i];
-                        numbers[i] = temp;
-
+                        Swap(numbers, i - 1, i);
                         currMaxSwapIndex = i;
                     }
                 }
@@ -123,6 +120,7 @@ namespace SearchAndSort
 
             return numbers;
         }
+
 
         public int[] Quick(int[] numbers)
         {
@@ -152,9 +150,7 @@ namespace SearchAndSort
             int pivotValue = numbers[pivotIndex];
 
             // Move pivot value to highest position of the subarray
-            int temp = numbers[high];
-            numbers[high] = pivotValue;
-            numbers[pivotIndex] = temp;
+            Swap(numbers, high, pivotIndex);
 
             int storeIndex = low;
 
@@ -164,9 +160,7 @@ namespace SearchAndSort
                 if ((SortOrder == SortOrder.Asc && numbers[i] <= pivotValue)
                     || (SortOrder == SortOrder.Desc && numbers[i] >= pivotValue))
                 {
-                    temp = numbers[storeIndex];
-                    numbers[storeIndex] = numbers[i];
-                    numbers[i] = temp;
+                    Swap(numbers, storeIndex, i);
                     
                     // By the end of the loop traversal, this will hold the correct position 
                     //for the pivot, as we have essentially counted how many subarray values 
@@ -176,14 +170,13 @@ namespace SearchAndSort
             }
 
             // Move pivot into its correct position in the subarray
-            temp = numbers[high];
-            numbers[high] = numbers[storeIndex];
-            numbers[storeIndex] = temp;
+            Swap(numbers, high, storeIndex);
 
             return storeIndex;
         }
 
         #endregion
+
 
         public int[] Merge(int[] numbers)
         {
@@ -244,6 +237,86 @@ namespace SearchAndSort
 
         #endregion
 
+
+        /// <summary>
+        /// Performs a heap sort for provided array of integers.
+        /// </summary>
+        /// <param name="numbers">Array of integers to be sorted.</param>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
+        public int[] Heap(int[] numbers)
+        {
+            if (numbers.Length <= 0)
+                throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
+
+            // Build heap in array so that the largest value is at the root
+            Heapify(numbers);
+
+            int endInd = numbers.Length - 1;
+
+            while (endInd > 0)
+            {
+                Swap(numbers, 0, endInd);   // Place current largest value in sorted section
+
+                endInd--;                           // Set new end point for unsorted heap section
+                SiftDown(numbers, 0, endInd);       // Flush out largest value in unsorted heap section
+            }
+
+            return numbers;
+        }
+
+        #region Heap sort helper methods
+
+        private void Heapify(int[] numbers)
+        {
+            // Start index is parent of last element in 'numbers' array (i.e. reverse 2n + 1);
+            int startInd = (int)Math.Floor((numbers.Length - 2.0) / 2.0);
+
+            while (startInd >= 0)
+            {
+                // Sift down node at index 'startInd' to proper place such that
+                // all nodes below are in heap order
+                SiftDown(numbers, startInd, numbers.Length - 1);
+
+                startInd--;
+            }
+        }
+
+        private void SiftDown(int[] numbers, int startInd, int endInd)
+        {
+            Func<int, int, bool> conditionBySortOrder = (numChild, numSwap) =>
+                (SortOrder == SortOrder.Asc && numChild > numSwap)
+                    || (SortOrder == SortOrder.Desc && numChild < numSwap);
+
+            int rootInd = startInd;
+
+            // While at least one child node exists for current root node
+            while (rootInd * 2 + 1 <= endInd)
+            {
+                int childInd = rootInd * 2 + 1;
+                int swapInd = rootInd;     // keep track of child to swap with
+
+                // If left child is greater (asc.), assign its index as current swap index
+                if (conditionBySortOrder(numbers[childInd], numbers[swapInd]))
+                    swapInd = childInd;
+
+                // If right child exists and it's greater (asc.), assign its index as swap index
+                if (childInd + 1 <= endInd && conditionBySortOrder(numbers[childInd + 1], numbers[swapInd]))
+                    swapInd = childInd + 1;
+
+                // No order sifting occured
+                if (swapInd == rootInd)
+                    return;
+                else
+                {
+                    Swap(numbers, swapInd, rootInd);
+                    rootInd = swapInd;     // Update rootInd index
+                }
+            }
+        }
+
+        #endregion
+
+
         /// <summary>
         /// Performs a .NET Framework sort for provided array of integers.
         /// </summary>
@@ -258,6 +331,7 @@ namespace SearchAndSort
                 SortOrder == SortOrder.Desc ? new IntArrayDescendingComparer() : null);
             return numbers;
         }
+
 
         #region Unoptimised sorting algorithms
 
@@ -277,9 +351,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[j - 1] > numbers[j])
                         || (SortOrder == SortOrder.Desc && numbers[j - 1] < numbers[j]))
                     {
-                        int temp = numbers[j - 1];
-                        numbers[j - 1] = numbers[j];
-                        numbers[j] = temp;
+                        Swap(numbers, j - 1, j);
                     }
                 }
             }
@@ -301,9 +373,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
-                        int temp = numbers[i - 1];
-                        numbers[i - 1] = numbers[i];
-                        numbers[i] = temp;
+                        Swap(numbers, i - 1, i);
 
                         swapped = true;
                     }
@@ -329,10 +399,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
-                        int temp = numbers[i - 1];
-                        numbers[i - 1] = numbers[i];
-                        numbers[i] = temp;
-
+                        Swap(numbers, i - 1, i);
                         swapped = true;
                     }
                 }
@@ -343,6 +410,18 @@ namespace SearchAndSort
             } while (swapped);
 
             return numbers;
+        }
+
+        #endregion
+
+
+        #region General helper methods
+
+        private void Swap(int[] numbers, int num1Ind, int num2Ind)
+        {
+            int temp = numbers[num1Ind];
+            numbers[num1Ind] = numbers[num2Ind];
+            numbers[num2Ind] = temp;
         }
 
         #endregion

@@ -108,6 +108,11 @@ namespace SearchAndSort
             HandleSort(sort.Quick);
         }
 
+        private void heapButton_Click(object sender, RoutedEventArgs e)
+        {
+            HandleSort(sort.Heap);
+        }
+
         private void dotNetButton_Click(object sender, RoutedEventArgs e)
         {
             HandleSort(sort.DotNet);

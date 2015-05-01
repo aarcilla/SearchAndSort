@@ -6,14 +6,14 @@ namespace SearchAndSort.Tests
     [TestClass]
     public class SortUnitTests
     {
-        private int[] testNumsUnordered = { 56, 9, 7, 90, 4, 13, 3, 37, 45 };
-        private int[] testNumsOrderedAsc = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
-        private int[] testNumsOrderedDesc = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
+        private readonly int[] testNumsUnordered = { 56, 9, 7, 90, 4, 13, 3, 37, 45 };
+        private readonly int[] testNumsOrderedAsc = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
+        private readonly int[] testNumsOrderedDesc = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
 
         #region Selection sort unit tests
 
         [TestMethod]
-        public void SelectionSort_Success_Ascending()
+        public void SelectionSort_Success()
         {
             // ARRANGE
             Sort sortAlgos = new Sort();
@@ -405,10 +405,61 @@ namespace SearchAndSort.Tests
 
         #endregion
 
+        #region Heap sort unit tests
+
+        [TestMethod]
+        public void HeapSort_Success()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+
+            // ACT
+            int[] result = sortAlgos.Heap(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedAsc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void HeapSort_Success_Descending()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort(SortOrder.Desc);
+
+            // ACT
+            int[] result = sortAlgos.Heap(testNumsUnordered);
+
+            // ASSERT
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(testNumsOrderedDesc[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void HeapSort_Fail_EmptyArray()
+        {
+            // ARRANGE
+            Sort sortAlgos = new Sort();
+            int[] testNums = { };
+
+            // ACT
+            sortAlgos.Heap(testNums);
+
+            // ASSERT
+            // ExpectedException attribute
+        }
+
+        #endregion
+
         #region .NET sort unit tests
 
         [TestMethod]
-        public void DotNetSort_Success_Ascending()
+        public void DotNetSort_Success()
         {
             // ARRANGE
             Sort sortAlgos = new Sort();
