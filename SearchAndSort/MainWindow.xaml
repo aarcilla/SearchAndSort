@@ -8,7 +8,8 @@
                          Style="{StaticResource Heading}" Checked="searchRadioButton_Checked" />
             <StackPanel x:Name="searchAlgorithmsPanel">
                 <Button x:Name="linearButton" Content="Linear" Click="linearButton_Click" />
-                <Button x:Name="binaryButton" Content="Binary" Click="binaryButton_Click" />
+                <Button x:Name="binaryButton" Content="Binary" Click="binaryButton_Click"
+                        ToolTip="Numbers must be in ascending order before search." />
             </StackPanel>
                 
             <RadioButton x:Name="sortRadioButton" Content="Sorting Algorithms" 
@@ -26,13 +27,15 @@
         </StackPanel>
         
         <StackPanel x:Name="dataPanel" DockPanel.Dock="Right">
-            <Label Content="Insert numbers here (separate numbers with spaces):" Style="{StaticResource Heading}" />
-            <TextBox x:Name="inputBox" Margin="5" />
+            <Label Content="Insert numbers here:" Style="{StaticResource Heading}" />
+            <TextBox x:Name="inputBox" Margin="5" 
+                     ToolTip="Spaces, commas, semi-colons, and ampersands allowed." />
             
-            <StackPanel x:Name="searchOnlyInput">
-                <Label Content="Insert desired number here:" Style="{StaticResource Heading}" />
-                <TextBox x:Name="desiredNumBox" Margin="5" />
-            </StackPanel>
+            <DockPanel x:Name="searchOnlyInput">
+                <Label Content="Insert desired number here:" Style="{StaticResource Heading}"
+                       DockPanel.Dock="Left" />
+                <TextBox x:Name="desiredNumBox" Margin="5" DockPanel.Dock="Right" />
+            </DockPanel>
             <Label Content="Output:" Style="{StaticResource Heading}" />
             <Label x:Name="outputLabel" Content="..." Style="{StaticResource Info}" >
                 <Label.ContextMenu>
