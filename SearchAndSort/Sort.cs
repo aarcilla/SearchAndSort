@@ -318,7 +318,7 @@ namespace SearchAndSort
 
 
         /// <summary>
-        /// Performs a .NET Framework sort for provided array of integers.
+        /// Performs a .NET Framework sort (i.e. Array.Sort()) for provided array of integers.
         /// </summary>
         /// <param name="numbers">Array of integers to be sorted.</param>
         /// <returns>Array of integers in the specified (ascending or descending) order.</returns>

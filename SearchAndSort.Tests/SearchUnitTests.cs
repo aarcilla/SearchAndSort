@@ -5,9 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SearchAndSort.Tests
 {
-    /// <summary>
-    /// Summary description for SearchUnitTests
-    /// </summary>
     [TestClass]
     public class SearchUnitTests
     {
