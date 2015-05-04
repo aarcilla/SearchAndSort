@@ -71,7 +71,7 @@ namespace SearchAndSort
                 // delegate 'searchAlgorithm' argument input requirements
                 HandleSearch((nums, des) => search.Binary(nums, des, true));
             }
-            catch (SearchAndSort.Exceptions.NotInOrderException ex)
+            catch (SearchAndSort.Exceptions.NotInOrderException)
             {
                 outputLabel.Foreground = ErrorBrush;
                 outputLabel.Content = "Provided array of integers not sorted.";
@@ -157,7 +157,11 @@ namespace SearchAndSort
         {
             if (string.IsNullOrWhiteSpace(inputBox.Text)
                 || string.IsNullOrWhiteSpace(desiredNumBox.Text))
+            {
+                outputLabel.Foreground = ErrorBrush;
+                outputLabel.Content = "Either the numbers textbox or desired number textbox is empty.";
                 return;
+            }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
 
@@ -213,7 +217,12 @@ namespace SearchAndSort
         private void HandleSort(Func<int[], int[]> sortAlgorithm)
         {
             if (string.IsNullOrWhiteSpace(inputBox.Text))
+            {
+                outputLabel.Foreground = ErrorBrush;
+                outputLabel.Content = "The numbers textbox is empty.";
+
                 return;
+            }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
             
