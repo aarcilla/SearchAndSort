@@ -47,7 +47,7 @@ namespace SearchAndSort
 
                 if (currSortIndex != i)
                 {
-                    Swap(numbers, i, currSortIndex);
+                    Swap<int>(numbers, i, currSortIndex);
                 }
             }
 
@@ -110,7 +110,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
-                        Swap(numbers, i - 1, i);
+                        Swap<int>(numbers, i - 1, i);
                         currMaxSwapIndex = i;
                     }
                 }
@@ -121,7 +121,11 @@ namespace SearchAndSort
             return numbers;
         }
 
-
+        /// <summary>
+        /// Performs a quicksort for provided array of integers.
+        /// </summary>
+        /// <param name="numbers">Array of integers to be sorted.</param>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
         public int[] Quick(int[] numbers)
         {
             if (numbers.Length <= 0)
@@ -150,7 +154,7 @@ namespace SearchAndSort
             int pivotValue = numbers[pivotIndex];
 
             // Move pivot value to highest position of the subarray
-            Swap(numbers, high, pivotIndex);
+            Swap<int>(numbers, high, pivotIndex);
 
             int storeIndex = low;
 
@@ -160,7 +164,7 @@ namespace SearchAndSort
                 if ((SortOrder == SortOrder.Asc && numbers[i] <= pivotValue)
                     || (SortOrder == SortOrder.Desc && numbers[i] >= pivotValue))
                 {
-                    Swap(numbers, storeIndex, i);
+                    Swap<int>(numbers, storeIndex, i);
                     
                     // By the end of the loop traversal, this will hold the correct position 
                     //for the pivot, as we have essentially counted how many subarray values 
@@ -170,14 +174,18 @@ namespace SearchAndSort
             }
 
             // Move pivot into its correct position in the subarray
-            Swap(numbers, high, storeIndex);
+            Swap<int>(numbers, high, storeIndex);
 
             return storeIndex;
         }
 
         #endregion
 
-
+        /// <summary>
+        /// Performs a merge sort for provided array of integers.
+        /// </summary>
+        /// <param name="numbers">Array of integers to be sorted.</param>
+        /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
         public int[] Merge(int[] numbers)
         {
             if (numbers.Length <= 0)
@@ -239,7 +247,7 @@ namespace SearchAndSort
 
 
         /// <summary>
-        /// Performs a heap sort for provided array of integers.
+        /// Performs a heapsort for provided array of integers.
         /// </summary>
         /// <param name="numbers">Array of integers to be sorted.</param>
         /// <returns>Array of integers in the specified (ascending or descending) order.</returns>
@@ -255,7 +263,7 @@ namespace SearchAndSort
 
             while (endInd > 0)
             {
-                Swap(numbers, 0, endInd);   // Place current largest value in sorted section
+                Swap<int>(numbers, 0, endInd);   // Place current largest value in sorted section
 
                 endInd--;                           // Set new end point for unsorted heap section
                 SiftDown(numbers, 0, endInd);       // Flush out largest value in unsorted heap section
@@ -308,7 +316,7 @@ namespace SearchAndSort
                     return;
                 else
                 {
-                    Swap(numbers, swapInd, rootInd);
+                    Swap<int>(numbers, swapInd, rootInd);
                     rootInd = swapInd;     // Update rootInd index
                 }
             }
@@ -351,7 +359,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[j - 1] > numbers[j])
                         || (SortOrder == SortOrder.Desc && numbers[j - 1] < numbers[j]))
                     {
-                        Swap(numbers, j - 1, j);
+                        Swap<int>(numbers, j - 1, j);
                     }
                 }
             }
@@ -373,7 +381,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
-                        Swap(numbers, i - 1, i);
+                        Swap<int>(numbers, i - 1, i);
 
                         swapped = true;
                     }
@@ -399,7 +407,7 @@ namespace SearchAndSort
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
-                        Swap(numbers, i - 1, i);
+                        Swap<int>(numbers, i - 1, i);
                         swapped = true;
                     }
                 }
@@ -417,11 +425,11 @@ namespace SearchAndSort
 
         #region General helper methods
 
-        private void Swap(int[] numbers, int num1Ind, int num2Ind)
+        private void Swap<T>(T[] arr, int t1Ind, int t2Ind)
         {
-            int temp = numbers[num1Ind];
-            numbers[num1Ind] = numbers[num2Ind];
-            numbers[num2Ind] = temp;
+            T temp = arr[t1Ind];
+            arr[t1Ind] = arr[t2Ind];
+            arr[t2Ind] = temp;
         }
 
         #endregion
