@@ -26,11 +26,14 @@ namespace SearchAndSort
         private readonly Brush OkBrush = Brushes.Black;
         private readonly Brush ErrorBrush = Brushes.DarkRed;
 
+        private readonly string StatusBarDefaultText = "Ready.";
+
         public MainWindow()
         {
             InitializeComponent();
 
             searchRadioButton.IsChecked = true;
+            statusBarText.Text = StatusBarDefaultText;
         }
 
         #region Search/sort radio button event handlers
@@ -138,6 +141,21 @@ namespace SearchAndSort
             Clipboard.SetText((string)statisticsLabel.Content);
         }
 
+        private void inputNumbers_MouseEnter(object sender, MouseEventArgs e)
+        {
+            statusBarText.Text = "Spaces, commas, semi-colons, and ampersands as delimiters are allowed.";
+        }
+
+        private void binaryButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            statusBarText.Text = "Numbers must be in ascending order before search.";
+        }
+
+        private void statusBarDefault_MouseLeave(object sender, MouseEventArgs e)
+        {
+            statusBarText.Text = StatusBarDefaultText;
+        }
+
         #endregion
 
 
@@ -189,7 +207,7 @@ namespace SearchAndSort
             }
 
             outputLabel.Foreground = OkBrush;
-            outputLabel.Content = string.Format("Found {0} at index {1}.", desiredNum, result) + "\n";
+            outputLabel.Content = string.Format("Found {0} at index {1} (position {2}).", desiredNum, result, (result + 1)) + "\n";
 
             // Build a string of the input array with the desired number 
             // surrounded by square parentheses to highlight/visualise its position
