@@ -30,24 +30,24 @@ namespace SearchAndSort
             if (numbers.Length <= 0)
                 throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
 
-            int currSortIndex;
+            int currSortInd;
 
             for (int i = 0; i < numbers.Length - 1; i++)
             {
-                currSortIndex = i;
+                currSortInd = i;
 
                 for (int j = i + 1; j < numbers.Length; j++)
                 {
-                    if ((SortOrder == SortOrder.Asc && numbers[currSortIndex] > numbers[j])
-                        || (SortOrder == SortOrder.Desc && numbers[currSortIndex] < numbers[j]))
+                    if ((SortOrder == SortOrder.Asc && numbers[currSortInd] > numbers[j])
+                        || (SortOrder == SortOrder.Desc && numbers[currSortInd] < numbers[j]))
                     {
-                        currSortIndex = j;
+                        currSortInd = j;
                     }
                 }
 
-                if (currSortIndex != i)
+                if (currSortInd != i)
                 {
-                    Swap<int>(numbers, i, currSortIndex);
+                    Swap<int>(numbers, i, currSortInd);
                 }
             }
 
@@ -99,24 +99,24 @@ namespace SearchAndSort
             if (numbers.Length <= 0)
                 throw new ArgumentNullException("numbers", "'numbers' does not contain any integers.");
 
-            int maxIndex = numbers.Length;
-            int currMaxSwapIndex;
+            int maxInd = numbers.Length;
+            int currMaxSwapInd;
 
             do {
-                currMaxSwapIndex = 0;        // Reset for each full pass
+                currMaxSwapInd = 0;        // Reset for each full pass
 
-                for(int i = 1; i < maxIndex; i++)
+                for(int i = 1; i < maxInd; i++)
                 {
                     if ((SortOrder == SortOrder.Asc && numbers[i - 1] > numbers[i])
                         || (SortOrder == SortOrder.Desc && numbers[i - 1] < numbers[i]))
                     {
                         Swap<int>(numbers, i - 1, i);
-                        currMaxSwapIndex = i;
+                        currMaxSwapInd = i;
                     }
                 }
 
-                maxIndex = currMaxSwapIndex;
-            } while (maxIndex > 0);
+                maxInd = currMaxSwapInd;
+            } while (maxInd > 0);
 
             return numbers;
         }
@@ -150,13 +150,13 @@ namespace SearchAndSort
 
         private int Partition(int[] numbers, int low, int high)
         {
-            int pivotIndex = (new Random()).Next(low, high);
-            int pivotValue = numbers[pivotIndex];
+            int pivotInd = (new Random()).Next(low, high);
+            int pivotValue = numbers[pivotInd];
 
             // Move pivot value to highest position of the subarray
-            Swap<int>(numbers, high, pivotIndex);
+            Swap<int>(numbers, high, pivotInd);
 
-            int storeIndex = low;
+            int storeInd = low;
 
             // Compare other array elements against pivot value
             for (int i = low; i < high; i++)
@@ -164,19 +164,19 @@ namespace SearchAndSort
                 if ((SortOrder == SortOrder.Asc && numbers[i] <= pivotValue)
                     || (SortOrder == SortOrder.Desc && numbers[i] >= pivotValue))
                 {
-                    Swap<int>(numbers, storeIndex, i);
+                    Swap<int>(numbers, storeInd, i);
                     
                     // By the end of the loop traversal, this will hold the correct position 
                     //for the pivot, as we have essentially counted how many subarray values 
                     // are lesser than or equal to it (for asc.; greater than for desc.)
-                    storeIndex++;
+                    storeInd++;
                 }
             }
 
             // Move pivot into its correct position in the subarray
-            Swap<int>(numbers, high, storeIndex);
+            Swap<int>(numbers, high, storeInd);
 
-            return storeIndex;
+            return storeInd;
         }
 
         #endregion

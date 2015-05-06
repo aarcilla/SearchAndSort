@@ -37,9 +37,9 @@ namespace SearchAndSort
             Func<char, bool> isDelimiterValid = (del) => validDelimiters.Contains(del);
 
             string currNumAsString = string.Empty;
-            for (int currIndex = 0; currIndex < numsString.Length; currIndex++)
+            for (int currInd = 0; currInd < numsString.Length; currInd++)
             {
-                char currDigitChar = numsString[currIndex];
+                char currDigitChar = numsString[currInd];
                 if (isDelimiterValid(currDigitChar))
                 {
                     addToNumsList(currNumAsString);
