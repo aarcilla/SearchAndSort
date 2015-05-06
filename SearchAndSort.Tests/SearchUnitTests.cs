@@ -167,6 +167,34 @@ namespace SearchAndSort.Tests
         }
 
         [TestMethod]
+        public void BinarySearch_Success_DescendingOrderArray_FirstHalf()
+        {
+            // ARRANGE
+            int[] testNumsOrderedDesc = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
+            int desiredNum = 37;
+
+            // ACT
+            int? result = searchAlgos.Binary(testNumsOrderedDesc, desiredNum);
+
+            // ASSERT
+            Assert.IsTrue(result == 3);
+        }
+
+        [TestMethod]
+        public void BinarySearch_Success_DescendingOrderArray_SecondHalf()
+        {
+            // ARRANGE
+            int[] testNumsOrderedDesc = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
+            int desiredNum = 4;
+
+            // ACT
+            int? result = searchAlgos.Binary(testNumsOrderedDesc, desiredNum);
+
+            // ASSERT
+            Assert.IsTrue(result == 7);
+        }
+
+        [TestMethod]
         public void BinarySearch_Fail_NotFound()
         {
             // ARRANGE

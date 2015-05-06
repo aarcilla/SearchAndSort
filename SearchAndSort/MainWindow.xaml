@@ -1,7 +1,7 @@
 ﻿<Window x:Class="SearchAndSort.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Searching and Sorting" Height="350" Width="525">
+        Title="Search &amp; Sort" Height="350" Width="525">
     <DockPanel>
         <StackPanel x:Name="statusPanel" DockPanel.Dock="Bottom">
             <StatusBar x:Name="statusBar" Height="22" Background="LightGray">
