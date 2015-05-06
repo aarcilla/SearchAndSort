@@ -37,29 +37,24 @@
             // First check if array is sorted
             if (checkIfSorted)
             {
-                int? unorderedInd = null;
-
                 for (int i = 0; i < numbers.Length - 1; i++)
                 {
-                    // If the preceding integer in a pair of adjacent integers 
+                    // For all integers in array: If the preceding integer in a pair of adjacent integers 
                     // is greater than the following integer, array isn't sorted
                     if (numbers[i] > numbers[i + 1])
                     {
                         ascending = false;
-                        if (!unorderedInd.HasValue)
-                            unorderedInd = i;
                     }
 
                     if (numbers[i] < numbers[i + 1])
                     {
                         descending = false;
-                        if (!unorderedInd.HasValue)
-                            unorderedInd = i;
                     }
                 }
 
-                if (!(ascending || descending))
-                    throw new SearchAndSort.Exceptions.NotInOrderException(unorderedInd.Value, numbers[unorderedInd.Value]);
+                // Throw NotInOrderException() if array is neither in ascending nor descending order
+                if (!ascending && !descending)
+                    throw new SearchAndSort.Exceptions.NotInOrderException();
             }
 
             int? result = BinaryRecursive(numbers, desiredNum, 0, numbers.Length - 1, descending);
