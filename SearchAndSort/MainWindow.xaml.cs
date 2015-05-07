@@ -148,7 +148,7 @@ namespace SearchAndSort
 
         private void binaryButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            statusBarText.Text = "Numbers must be in ascending order before search.";
+            statusBarText.Text = "Numbers must be in ascending or descending order before search.";
         }
 
         private void statusBarDefault_MouseLeave(object sender, MouseEventArgs e)
