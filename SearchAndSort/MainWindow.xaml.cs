@@ -182,6 +182,7 @@ namespace SearchAndSort
             }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
+            statisticsLabel.Content = string.Format("{0} numbers\n", nums.Length);
 
             int desiredNum;
             bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
@@ -196,8 +197,8 @@ namespace SearchAndSort
             int? result = searchAlgorithm(nums, desiredNum);
             stopwatch.Stop();
 
-            statisticsLabel.Content =
-                string.Format("{0} ticks", stopwatch.ElapsedTicks);
+            statisticsLabel.Content +=
+                string.Format("{0} ticks\n", stopwatch.ElapsedTicks);
 
             if (!result.HasValue)
             {
@@ -243,12 +244,13 @@ namespace SearchAndSort
             }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
+            statisticsLabel.Content = string.Format("{0} numbers\n", nums.Length);
             
             Stopwatch stopwatch = Stopwatch.StartNew();
             sortAlgorithm(nums);
             stopwatch.Stop();
 
-            statisticsLabel.Content = 
+            statisticsLabel.Content += 
                 string.Format("{0} ticks", stopwatch.ElapsedTicks);
 
             StringBuilder numsStringSorted = new StringBuilder();
