@@ -13,16 +13,18 @@
         
         <StackPanel x:Name="algorithmsPanel" DockPanel.Dock="Left" Width="150" Background="#FFEAEAEA">
             <RadioButton x:Name="searchRadioButton" Content="Search Algorithms" 
-                         Style="{StaticResource Heading}" Checked="searchRadioButton_Checked" />
-            <StackPanel x:Name="searchAlgorithmsPanel">
+                         Style="{StaticResource Heading}" />
+            <StackPanel x:Name="searchAlgorithmsPanel" 
+                        IsEnabled="{Binding IsChecked, ElementName=searchRadioButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Button x:Name="linearButton" Content="Linear" Click="linearButton_Click" />
                 <Button x:Name="binaryButton" Content="Binary" Click="binaryButton_Click"
                         MouseEnter="binaryButton_MouseEnter" MouseLeave="statusBarDefault_MouseLeave" />
             </StackPanel>
                 
             <RadioButton x:Name="sortRadioButton" Content="Sorting Algorithms" 
-                         Style="{StaticResource Heading}" Checked="sortRadioButton_Checked" />
-            <StackPanel x:Name="sortAlgorithmsPanel">
+                         Style="{StaticResource Heading}" />
+            <StackPanel x:Name="sortAlgorithmsPanel" 
+                        IsEnabled="{Binding IsChecked, ElementName=sortRadioButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <CheckBox x:Name="descOrderCheckBox" Content="Descending?" Click="descOrderCheckBox_Click" />
                 <Button x:Name="selectionButton" Content="Selection" Click="selectionButton_Click" />
                 <Button x:Name="insertionButton" Content="Insertion" Click="insertionButton_Click" />
@@ -39,7 +41,8 @@
                 <Label Content="Insert numbers here:" Style="{StaticResource Heading}" />
                 <TextBox x:Name="inputBox" Margin="5" MaxHeight="50" />
             </StackPanel>
-            <DockPanel x:Name="searchOnlyInput">
+            <DockPanel x:Name="searchOnlyInput"
+                       IsEnabled="{Binding IsChecked, ElementName=searchRadioButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <DockPanel DockPanel.Dock="Top">
                 <Label Content="Insert desired number here:" Style="{StaticResource Heading}"
                        DockPanel.Dock="Left" />
@@ -49,10 +52,9 @@
                     <CheckBox x:Name="disableSortCheckCheckBox" DockPanel.Dock="Top" Content="Binary: skip sort check (for faster performance)" FontWeight="Bold"
                                MouseEnter="disableSortCheckCheckBox_MouseEnter" MouseLeave="statusBarDefault_MouseLeave" />
                     <RadioButton x:Name="noSortCheckAscendingRadioButton" Content="Ascending"
-                                 Margin="30 0 10 0" Checked="noSortCheckAscendingRadioButton_Checked" 
+                                 Margin="30 0 10 0"
                                  IsEnabled="{Binding IsChecked, ElementName=disableSortCheckCheckBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <RadioButton x:Name="noSortCheckDescendingRadioButton" Content="Descending"
-                                 Checked="noSortCheckDescendingRadioButton_Checked"
                                  IsEnabled="{Binding IsChecked, ElementName=disableSortCheckCheckBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
             </DockPanel>

@@ -38,26 +38,6 @@ namespace SearchAndSort
             statusBarText.Text = StatusBarDefaultText;
         }
 
-        #region Search/sort radio button event handlers
-
-        private void searchRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            searchAlgorithmsPanel.IsEnabled = true;
-            sortAlgorithmsPanel.IsEnabled = false;
-
-            searchOnlyInput.IsEnabled = true;
-        }
-
-        private void sortRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            searchAlgorithmsPanel.IsEnabled = false;
-            sortAlgorithmsPanel.IsEnabled = true;
-
-            searchOnlyInput.IsEnabled = false;
-        }
-
-        #endregion
-
 
         #region Search button event handlers
 
@@ -164,16 +144,6 @@ namespace SearchAndSort
         private void disableSortCheckCheckBox_MouseEnter(object sender, MouseEventArgs e)
         {
             statusBarText.Text = "Only check if you're certain the inserted numbers are sorted, otherwise results may be inaccurate.";
-        }
-        
-        private void noSortCheckAscendingRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            noSortCheckDescendingRadioButton.IsChecked = false;
-        }
-
-        private void noSortCheckDescendingRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            noSortCheckAscendingRadioButton.IsChecked = false;
         }
         
         #endregion
@@ -285,9 +255,5 @@ namespace SearchAndSort
         }
 
         #endregion
-
-        
-
-        
     }
 }
