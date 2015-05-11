@@ -29,15 +29,18 @@
         /// <param name="desiredNum">The integer to be searched for.</param>
         /// <param name="checkIfSorted">Option to skip the check of whether the array is 
         /// sorted or not; mostly for benchmarking purposes.</param>
+        /// <param name="descending">For when sort check is disabled, 'descending'
+        /// denotes whether the array of integers is sorted in descending order or not.</param>
         /// <returns>The array index of the desired integer (i.e. starting with 0), 
         /// or null if desired integer was not found.</returns>
-        public int? Binary(int[] numbers, int desiredNum, bool checkIfSorted = true)
+        public int? Binary(int[] numbers, int desiredNum, bool checkIfSorted = true, bool descending = false)
         {
-            bool ascending = true, descending = true;
-            
-            // First check if array is sorted
+            // First check if array is sorted (O(n) time operation) 
             if (checkIfSorted)
             {
+                bool ascending = true;
+                descending = true;
+                
                 for (int i = 0; i < numbers.Length - 1; i++)
                 {
                     // For all integers in array: If the preceding integer in a pair of adjacent integers 
@@ -58,11 +61,7 @@
                     throw new SearchAndSort.Exceptions.NotInOrderException();
             }
 
-            // 'isDescending' parameter: only pass through 'descending' if sort check 
-            // occurred (which is by default), otherwise assume the array is sorted in 
-            // the more common ascending order (since we don't really know if it's descending or not)
-            int? result = BinaryRecursive(numbers, desiredNum, 0, numbers.Length - 1, 
-                checkIfSorted ? descending : false);
+            int? result = BinaryRecursive(numbers, desiredNum, 0, numbers.Length - 1, descending);
             
             return result;
         }

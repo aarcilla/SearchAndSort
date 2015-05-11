@@ -33,6 +33,8 @@ namespace SearchAndSort
             InitializeComponent();
 
             searchRadioButton.IsChecked = true;
+            disableSortCheckCheckBox.IsChecked = false;
+            noSortCheckAscendingRadioButton.IsChecked = true;
             statusBarText.Text = StatusBarDefaultText;
         }
 
@@ -68,16 +70,19 @@ namespace SearchAndSort
         {
             try
             {
+                bool disableSortCheck = disableSortCheckCheckBox.IsChecked.Value;
+                bool noSortCheckIsDescending = noSortCheckDescendingRadioButton.IsChecked.Value;
+
                 // Instead of directly passing the Search.Binary() method through,
                 // encapsulate it within another lambda delegate to be passed through
                 // so that 'checkIfSorted' parameter is handled and it adheres to the
                 // delegate 'searchAlgorithm' argument input requirements
-                HandleSearch((nums, des) => search.Binary(nums, des, true));
+                HandleSearch((nums, des) => search.Binary(nums, des, !disableSortCheck, noSortCheckIsDescending));
             }
             catch (SearchAndSort.Exceptions.NotInOrderException)
             {
-                outputLabel.Foreground = ErrorBrush;
-                outputLabel.Content = "Provided array of integers not sorted.";
+                outputTextBlock.Foreground = ErrorBrush;
+                outputTextBlock.Text = "Provided array of integers not sorted.";
             }
         }
 
@@ -133,12 +138,12 @@ namespace SearchAndSort
 
         private void copyAllOutputMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText((string)outputLabel.Content);
+            Clipboard.SetText(outputTextBlock.Text);
         }
 
         private void copyAllStatisticsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText((string)statisticsLabel.Content);
+            Clipboard.SetText(statisticsTextBlock.Text);
         }
 
         private void inputNumbers_MouseEnter(object sender, MouseEventArgs e)
@@ -156,6 +161,21 @@ namespace SearchAndSort
             statusBarText.Text = StatusBarDefaultText;
         }
 
+        private void disableSortCheckCheckBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            statusBarText.Text = "Only check if you're certain the inserted numbers are sorted, otherwise results may be inaccurate.";
+        }
+        
+        private void noSortCheckAscendingRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            noSortCheckDescendingRadioButton.IsChecked = false;
+        }
+
+        private void noSortCheckDescendingRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            noSortCheckAscendingRadioButton.IsChecked = false;
+        }
+        
         #endregion
 
 
@@ -176,20 +196,20 @@ namespace SearchAndSort
             if (string.IsNullOrWhiteSpace(inputBox.Text)
                 || string.IsNullOrWhiteSpace(desiredNumBox.Text))
             {
-                outputLabel.Foreground = ErrorBrush;
-                outputLabel.Content = "Either the numbers textbox or desired number textbox is empty.";
+                outputTextBlock.Foreground = ErrorBrush;
+                outputTextBlock.Text = "Either the numbers textbox or desired number textbox is empty.";
                 return;
             }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
-            statisticsLabel.Content = string.Format("{0} numbers\n", nums.Length);
+            statisticsTextBlock.Text = string.Format("{0} numbers\n", nums.Length);
 
             int desiredNum;
             bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
             if (!tryParseDesiredNum)
             {
-                outputLabel.Foreground = ErrorBrush;
-                outputLabel.Content = "Specified desired number is not a valid integer.";
+                outputTextBlock.Foreground = ErrorBrush;
+                outputTextBlock.Text = "Specified desired number is not a valid integer.";
                 return;
             }
 
@@ -197,18 +217,18 @@ namespace SearchAndSort
             int? result = searchAlgorithm(nums, desiredNum);
             stopwatch.Stop();
 
-            statisticsLabel.Content +=
+            statisticsTextBlock.Text +=
                 string.Format("{0} ticks\n", stopwatch.ElapsedTicks);
 
             if (!result.HasValue)
             {
-                outputLabel.Foreground = ErrorBrush;
-                outputLabel.Content = string.Format("Desired number ({0}) not found.", desiredNum);
+                outputTextBlock.Foreground = ErrorBrush;
+                outputTextBlock.Text = string.Format("Desired number ({0}) not found.", desiredNum);
                 return;
             }
 
-            outputLabel.Foreground = OkBrush;
-            outputLabel.Content = string.Format("Found {0} at index {1} (position {2}).", desiredNum, result, (result + 1)) + "\n";
+            outputTextBlock.Foreground = OkBrush;
+            outputTextBlock.Text = string.Format("Found {0} at index {1} (position {2}).", desiredNum, result, (result + 1)) + "\n";
 
             // Build a string of the input array with the desired number 
             // surrounded by square parentheses to highlight/visualise its position
@@ -221,7 +241,7 @@ namespace SearchAndSort
                     numsStringWithDesiredNumDenoted.Append(string.Format("{0} ", nums[i]));
             }
 
-            outputLabel.Content += numsStringWithDesiredNumDenoted.ToString();
+            outputTextBlock.Text += numsStringWithDesiredNumDenoted.ToString();
         }
 
         /// <summary>
@@ -237,20 +257,20 @@ namespace SearchAndSort
         {
             if (string.IsNullOrWhiteSpace(inputBox.Text))
             {
-                outputLabel.Foreground = ErrorBrush;
-                outputLabel.Content = "The numbers textbox is empty.";
+                outputTextBlock.Foreground = ErrorBrush;
+                outputTextBlock.Text = "The numbers textbox is empty.";
 
                 return;
             }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
-            statisticsLabel.Content = string.Format("{0} numbers\n", nums.Length);
+            statisticsTextBlock.Text = string.Format("{0} numbers\n", nums.Length);
             
             Stopwatch stopwatch = Stopwatch.StartNew();
             sortAlgorithm(nums);
             stopwatch.Stop();
 
-            statisticsLabel.Content += 
+            statisticsTextBlock.Text += 
                 string.Format("{0} ticks", stopwatch.ElapsedTicks);
 
             StringBuilder numsStringSorted = new StringBuilder();
@@ -260,10 +280,14 @@ namespace SearchAndSort
                 numsStringSorted.Append(" ");
             }
 
-            outputLabel.Foreground = OkBrush;
-            outputLabel.Content = numsStringSorted.ToString();
+            outputTextBlock.Foreground = OkBrush;
+            outputTextBlock.Text = numsStringSorted.ToString();
         }
 
         #endregion
+
+        
+
+        
     }
 }
