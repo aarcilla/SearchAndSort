@@ -39,7 +39,16 @@
         <StackPanel x:Name="dataPanel" DockPanel.Dock="Right">
             <StackPanel x:Name="numbersInput" MouseEnter="inputNumbers_MouseEnter" MouseLeave="statusBarDefault_MouseLeave">
                 <Label Content="Insert numbers here:" Style="{StaticResource Heading}" />
-                <TextBox x:Name="inputBox" Margin="5" MaxHeight="50" />
+                <TextBox x:Name="inputBox" Margin="5" MaxHeight="50">
+                    <TextBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="ApplicationCommands.Cut" />
+                            <MenuItem Command="ApplicationCommands.Copy" />
+                            <MenuItem Command="ApplicationCommands.Paste" />
+                            <MenuItem x:Name="inputBoxClear" Header="Clear" Click="inputBoxClear_Click" />
+                        </ContextMenu>
+                    </TextBox.ContextMenu>
+                </TextBox>
             </StackPanel>
             <DockPanel x:Name="searchOnlyInput"
                        IsEnabled="{Binding IsChecked, ElementName=searchRadioButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -64,7 +73,7 @@
                            Style="{StaticResource Info}">
                     <TextBlock.ContextMenu>
                         <ContextMenu>
-                            <MenuItem x:Name="copyAllOutputMenuItem" Header="Copy Output"
+                            <MenuItem x:Name="copyAllOutputMenuItem" Header="Copy Results"
                                       Click="copyAllOutputMenuItem_Click" />
                         </ContextMenu>
                     </TextBlock.ContextMenu>

@@ -156,6 +156,11 @@ namespace SearchAndSort
         {
             statusBarText.Text = "Only check if you're certain the inserted numbers are sorted, otherwise results may be inaccurate.";
         }
+
+        private void inputBoxClear_Click(object sender, RoutedEventArgs e)
+        {
+            inputBox.Text = string.Empty;
+        }
         
         #endregion
 
