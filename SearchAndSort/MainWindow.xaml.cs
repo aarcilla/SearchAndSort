@@ -23,6 +23,8 @@ namespace SearchAndSort
         private Search search = new Search();
         private Sort sort = new Sort();
 
+        private string lastUsedSearchOrSort = "None";
+
         private readonly Brush OkBrush = Brushes.Black;
         private readonly Brush ErrorBrush = Brushes.DarkRed;
 
@@ -43,11 +45,13 @@ namespace SearchAndSort
 
         private void linearButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Linear Search";
             HandleSearch(search.Linear);
         }
 
         private void binaryButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Binary Search";
             try
             {
                 bool disableSortCheck = disableSortCheckCheckBox.IsChecked.Value;
@@ -73,36 +77,43 @@ namespace SearchAndSort
 
         private void selectionButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Selection Sort";
             HandleSort(sort.Selection);
         }
 
         private void insertionButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Insertion Sort";
             HandleSort(sort.Insertion);
         }
 
         private void bubbleButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Bubble Sort";
             HandleSort(sort.Bubble);
         }
 
         private void mergeButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Merge Sort";
             HandleSort(sort.Merge);
         }
 
         private void quickButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Quicksort";
             HandleSort(sort.Quick);
         }
 
         private void heapButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = "Heapsort";
             HandleSort(sort.Heap);
         }
 
         private void dotNetButton_Click(object sender, RoutedEventArgs e)
         {
+            lastUsedSearchOrSort = ".NET Sort";
             HandleSort(sort.DotNet);
         }
 
@@ -163,6 +174,8 @@ namespace SearchAndSort
         /// </param>
         private void HandleSearch(Func<int[], int, int?> searchAlgorithm)
         {
+            statisticsTextBlock.Text = string.Format("{0}\n", lastUsedSearchOrSort);
+
             if (string.IsNullOrWhiteSpace(inputBox.Text)
                 || string.IsNullOrWhiteSpace(desiredNumBox.Text))
             {
@@ -172,7 +185,7 @@ namespace SearchAndSort
             }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
-            statisticsTextBlock.Text = string.Format("{0} numbers\n", nums.Length);
+            statisticsTextBlock.Text += string.Format("{0} numbers\n", nums.Length);
 
             int desiredNum;
             bool tryParseDesiredNum = Int32.TryParse(desiredNumBox.Text, out desiredNum);
@@ -225,6 +238,8 @@ namespace SearchAndSort
         /// </param>
         private void HandleSort(Func<int[], int[]> sortAlgorithm)
         {
+            statisticsTextBlock.Text = string.Format("{0}\n", lastUsedSearchOrSort);
+
             if (string.IsNullOrWhiteSpace(inputBox.Text))
             {
                 outputTextBlock.Foreground = ErrorBrush;
@@ -234,7 +249,7 @@ namespace SearchAndSort
             }
 
             int[] nums = inputHelpers.ParseDelimitedIntegers(inputBox.Text);
-            statisticsTextBlock.Text = string.Format("{0} numbers\n", nums.Length);
+            statisticsTextBlock.Text += string.Format("{0} numbers\n", nums.Length);
             
             Stopwatch stopwatch = Stopwatch.StartNew();
             sortAlgorithm(nums);
