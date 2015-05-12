@@ -16,6 +16,23 @@ namespace SearchAndSort.Tests
         }
 
         [TestMethod]
+        public void ParseDelimitedIntegers_Success_IncludesNegativeIntegers()
+        {
+            // ARRANGE
+            string stringOfNums = "1 2 3 4 -5 11 -12 13 -14 15 111";
+
+            // ACT
+            int[] result = inputHelpers.ParseDelimitedIntegers(stringOfNums);
+
+            // ASSERT
+            int[] expected = { 1, 2, 3, 4, -5, 11, -12, 13, -14, 15, 111 };
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(expected[i], result[i]);
+            }
+        }
+
+        [TestMethod]
         public void ParseDelimitedIntegers_Success_Whitespace()
         {
             // ARRANGE

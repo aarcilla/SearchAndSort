@@ -6,9 +6,9 @@ namespace SearchAndSort.Tests
     [TestClass]
     public class SortUnitTests
     {
-        private readonly int[] testNumsUnordered = { 56, 9, 7, 90, 4, 13, 3, 37, 45 };
-        private readonly int[] testNumsOrderedAsc = { 3, 4, 7, 9, 13, 37, 45, 56, 90 };
-        private readonly int[] testNumsOrderedDesc = { 90, 56, 45, 37, 13, 9, 7, 4, 3 };
+        private readonly int[] testNumsUnordered = { 56, 9, 7, 90, 4, 13, 3, -37, 45 };
+        private readonly int[] testNumsOrderedAsc = { -37, 3, 4, 7, 9, 13, 45, 56, 90 };
+        private readonly int[] testNumsOrderedDesc = { 90, 56, 45, 13, 9, 7, 4, 3, -37 };
 
         #region Selection sort unit tests
 
