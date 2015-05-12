@@ -27,6 +27,7 @@ namespace SearchAndSort
 
         private readonly Brush OkBrush = Brushes.Black;
         private readonly Brush ErrorBrush = Brushes.DarkRed;
+        private readonly string SupportedNums = string.Format("Numbers supported: {0} to {1}.", Int32.MinValue, Int32.MaxValue);
 
         private readonly string StatusBarDefaultText = "Ready.";
 
@@ -139,7 +140,7 @@ namespace SearchAndSort
 
         private void inputNumbers_MouseEnter(object sender, MouseEventArgs e)
         {
-            statusBarText.Text = "Spaces, commas, semi-colons, and ampersands as delimiters are allowed.";
+            statusBarText.Text = "Supported delimiters: [space] , ; &. " + SupportedNums;
         }
 
         private void binaryButton_MouseEnter(object sender, MouseEventArgs e)
@@ -160,6 +161,11 @@ namespace SearchAndSort
         private void inputBoxClear_Click(object sender, RoutedEventArgs e)
         {
             inputBox.Text = string.Empty;
+        }
+
+        private void desiredNumInput_MouseEnter(object sender, MouseEventArgs e)
+        {
+            statusBarText.Text = SupportedNums;
         }
         
         #endregion

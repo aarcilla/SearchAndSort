@@ -1,7 +1,7 @@
 ﻿<Window x:Class="SearchAndSort.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Search &amp; Sort" Height="450" Width="540">
+        Title="Search And Sort" Height="450" Width="540">
     <DockPanel>
         <StackPanel x:Name="statusPanel" DockPanel.Dock="Bottom">
             <StatusBar x:Name="statusBar" Height="22" Background="LightGray">
@@ -52,9 +52,10 @@
             </StackPanel>
             <DockPanel x:Name="searchOnlyInput"
                        IsEnabled="{Binding IsChecked, ElementName=searchRadioButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <DockPanel DockPanel.Dock="Top">
-                <Label Content="Insert desired number here:" Style="{StaticResource Heading}"
-                       DockPanel.Dock="Left" />
+                <DockPanel x:Name="desiredNumInput" DockPanel.Dock="Top" MouseEnter="desiredNumInput_MouseEnter"
+                           MouseLeave="statusBarDefault_MouseLeave">
+                    <Label Content="Insert desired number here:" Style="{StaticResource Heading}"
+                           DockPanel.Dock="Left" />
                     <TextBox x:Name="desiredNumBox" Margin="5" DockPanel.Dock="Right" />
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Bottom">
