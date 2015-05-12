@@ -6,7 +6,7 @@ Search & Sort is a basic PC application that allows for searching (a particular 
 Nothing special. Served as a means of practice and revision of WPF design and development, search & sort algorithms, and unit testing, as well as .NET & C# in general.
 
 ## Technologies
-* **Framework & language**: WPF 4.5, .NET 4.5.1 & C# 5.0
+* **Framework & language**: WPF 4.5, .NET 4.5 & C# 5.0
 * **IDE**: Visual Studio Community 2013
 * **Source control**: Git
 * **Unit testing**: Visual Studio Unit Testing
